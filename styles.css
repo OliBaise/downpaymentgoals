@@ -42,3 +42,11 @@ button:hover {
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+
+.content-box {
+  background-color: #e6f2ff; /* light blue */
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #cce0ff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
