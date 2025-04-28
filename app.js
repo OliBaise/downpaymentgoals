@@ -22,8 +22,8 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const yearsUntilTarget = targetAge - currentAge;
   const targetYear = currentYear + yearsUntilTarget;
 
-  const townData = townsdata[town][targetYear];
-
+const townData = townsdata[town][targetYear];
+  
   if (!townData) {
     alert(`⚠️ No projection available for ${town} in year ${targetYear}. Please adjust your target age.`);
     return; // <<< CRITICAL: stops the calculation
