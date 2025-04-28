@@ -14,7 +14,7 @@
     const result = document.getElementById("result");
     result.innerHTML = "";
 
-    if (!townsdata[town]) {
+    if (!townData[town]) {
       alert(`⚠️ No data available for town: ${town}.`);
       return;
     }
@@ -23,14 +23,14 @@
     const yearsUntilTarget = targetAge - currentAge;
     const targetYear = currentYear + yearsUntilTarget;
 
-    const townsdata = townsdata[town][targetYear];
+    const townData = townData[town][targetYear];
 
-    if (!townsdata) {
+    if (!townData) {
       alert(`⚠️ No projection available for ${town} in year ${targetYear}. Please adjust your target age.`);
       return; // <<< CRITICAL: stops the calculation
     }
 
-    const projectedPrice = townsdata.price;
+    const projectedPrice = townData.price;
     const depositRequired = projectedPrice * (depositPercentage / 100);
     const depositMinusSavings = Math.max(0, depositRequired - currentSavings);
     const monthsUntilTarget = yearsUntilTarget * 12;
