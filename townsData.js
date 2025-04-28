@@ -13430,4 +13430,5 @@ const townsdata = {
     "Current Median House Price": "199,023",
     "NSA Since 1991": 2.96
   }
+}
 };
