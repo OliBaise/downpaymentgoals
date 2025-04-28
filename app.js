@@ -22,14 +22,14 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const yearsUntilTarget = targetAge - currentAge;
   const targetYear = currentYear + yearsUntilTarget;
 
-  const townData = townsdata[town][targetYear];
+  const townsdata = townsdata[town][targetYear];
 
-  if (!townData) {
+  if (!townsdata) {
     alert(`⚠️ No projection available for ${town} in year ${targetYear}. Please adjust your target age.`);
     return; // <<< CRITICAL: stops the calculation
   }
 
-  const projectedPrice = townData.price;
+  const projectedPrice = townsdata.price;
   const depositRequired = projectedPrice * (depositPercentage / 100);
   const depositMinusSavings = Math.max(0, depositRequired - currentSavings);
   const monthsUntilTarget = yearsUntilTarget * 12;
