@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("calculator").addEventListener("submit", function (e) {
     e.preventDefault();
+    console.log("✅ Submit handler triggered"); // Debugging line
 
     const town = document.getElementById("town").value;
     const currentAge = parseInt(document.getElementById("age").value);
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const townData = townsdata[town][targetYear];
 
     if (!townData) {
-      result.innerHTML = `<p style="color:red;">No projection available for ${town} in ${targetYear}.</p>`;
+      result.innerHTML = `<p style="color:red;">No projection available for ${town} in year ${targetYear}.</p>`;
       return;
     }
 
@@ -52,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsUntilTarget = yearsUntilTarget * 12;
     const monthlySavings = monthsUntilTarget > 0 ? depositMinusSavings / monthsUntilTarget : depositMinusSavings;
 
-    // Mortgage calculations
     const loanAmount = projectedPrice - depositRequired;
     const monthlyInterestRate = interestRate / 100 / 12;
     const totalPayments = mortgageLength * 12;
