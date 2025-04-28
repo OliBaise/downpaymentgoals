@@ -1,59 +1,54 @@
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("✅ Submit handler triggered"); // Debugging line
 
   const town = document.getElementById("town").value;
-  const currentAge = parseInt(document.getElementById("age").value);
+  const currentAge = parseInt(document.getElementById("currentAge").value);
   const targetAge = parseInt(document.getElementById("targetAge").value);
-  const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
-  const depositPercentage = parseFloat(document.getElementById("depositPercentage").value);
-  const interestRate = parseFloat(document.getElementById("interestRate").value) || 5;
-  const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
+  const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
+  const currentSavings = parseFloat(document.getElementById("currentSavings").value) || 0;
+  const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+  const mortgageLength = parseInt(document.getElementById("mortgageLength").value);
 
   const result = document.getElementById("result");
   result.innerHTML = "";
 
   if (!townsdata[town]) {
-    alert(`⚠️ No data available for town: ${town}.`);
+    result.innerHTML = `<p style="color:red;">No data available for town: ${town}</p>`;
     return;
   }
 
   const currentYear = 2025;
-  const yearsUntilTarget = targetAge - currentAge;
-  const targetYear = currentYear + yearsUntilTarget;
+  const yearsToTarget = targetAge - currentAge;
+  const targetYear = currentYear + yearsToTarget;
 
-const townData = townsdata[town][targetYear];
-  
-  if (!townData) {
-    alert(`⚠️ No projection available for ${town} in year ${targetYear}. Please adjust your target age.`);
-    return; // <<< CRITICAL: stops the calculation
+  const townData = townsdata[town];
+  const housePriceData = townData[targetYear];
+
+  if (!housePriceData) {
+    result.innerHTML = `<p style="color:red;">No house price projection for year ${targetYear}.</p>`;
+    return;
   }
 
-  const projectedPrice = townData.price;
-  const depositRequired = projectedPrice * (depositPercentage / 100);
-  const depositMinusSavings = Math.max(0, depositRequired - currentSavings);
-  const monthsUntilTarget = yearsUntilTarget * 12;
-  const monthlySavings = monthsUntilTarget > 0 ? depositMinusSavings / monthsUntilTarget : depositMinusSavings;
+  const projectedHousePrice = housePriceData.price;
+  const requiredDeposit = (depositPercentage * projectedHousePrice) - currentSavings;
+  const monthsToSave = yearsToTarget * 12;
+  const monthlySavingsNeeded = requiredDeposit > 0 ? requiredDeposit / monthsToSave : 0;
 
-  // Mortgage calculations
-  const loanAmount = projectedPrice - depositRequired;
-  const monthlyInterestRate = interestRate / 100 / 12;
-  const totalPayments = mortgageLength * 12;
+  const mortgageAmount = projectedHousePrice - (depositPercentage * projectedHousePrice);
+  const monthlyInterestRate = interestRate / 12;
+  const numberOfPayments = mortgageLength * 12;
 
-  const monthlyPayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalPayments)) / (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
+  const monthlyMortgageRepayment = 
+    (mortgageAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
 
-  const requiredMonthlyIncome = monthlyPayment / 0.28;
-  const requiredAnnualIncome = requiredMonthlyIncome * 12;
+  const minimumSalaryRequired = (monthlyMortgageRepayment / 0.28) * 12;
 
   result.innerHTML = `
     <h2>Results</h2>
-    <p>Projected House Price: £${projectedPrice.toLocaleString()}</p>
-    <p>Deposit Needed: £${depositRequired.toLocaleString()}</p>
-    <p>Deposit Needed (minus current savings): £${depositMinusSavings.toLocaleString()}</p>
-    <p>Monthly Savings Needed: £${monthlySavings.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
-    <p><strong>Mortgage Calculation:</strong></p>
-    <p>Loan Amount: £${loanAmount.toLocaleString()}</p>
-    <p>Estimated Monthly Mortgage Payment: £${monthlyPayment.toFixed(2)}</p>
-    <p>Minimum Required Annual Income: £${requiredAnnualIncome.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+    <p><strong>Projected House Price (${targetYear}):</strong> £${projectedHousePrice.toLocaleString()}</p>
+    <p><strong>Required Deposit:</strong> £${Math.max(requiredDeposit, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
+    <p><strong>Monthly Savings Needed:</strong> £${monthlySavingsNeeded.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
+    <p><strong>Estimated Monthly Mortgage Repayments:</strong> £${monthlyMortgageRepayment.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
+    <p><strong>Minimum Salary Needed:</strong> £${minimumSalaryRequired.toLocaleString(undefined, {maximumFractionDigits: 2})} per year</p>
   `;
 });
