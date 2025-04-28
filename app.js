@@ -1,3 +1,24 @@
+// Populate the town dropdown when page loads
+document.addEventListener("DOMContentLoaded", function () {
+  const townSelect = document.getElementById("town");
+
+  if (typeof townsdata === "undefined") {
+    console.error("❌ townsdata is not defined. Make sure townsdata.js is loaded first.");
+    return;
+  }
+
+  const towns = Object.keys(townsdata).sort();
+  townSelect.innerHTML = `<option value="">Select your town</option>`;
+
+  towns.forEach(town => {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  });
+});
+
+// Handle the calculator form
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -22,17 +43,17 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const targetYear = currentYear + yearsToTarget;
 
   const townData = townsdata[town];
-  const housePriceData = townData[targetYear];
+  const housePriceString = townData[targetYear];
 
-  if (!housePriceData) {
+  if (!housePriceString) {
     result.innerHTML = `<p style="color:red;">No house price projection for year ${targetYear}.</p>`;
     return;
   }
 
-  const projectedHousePrice = housePriceData.price;
-  const requiredDeposit = (depositPercentage * projectedHousePrice) - currentSavings;
+  const projectedHousePrice = parseFloat(housePriceString.replace(/,/g, '')); // remove commas and parse
+  const depositNeeded = (depositPercentage * projectedHousePrice) - currentSavings;
   const monthsToSave = yearsToTarget * 12;
-  const monthlySavingsNeeded = requiredDeposit > 0 ? requiredDeposit / monthsToSave : 0;
+  const monthlySavingsNeeded = depositNeeded > 0 ? depositNeeded / monthsToSave : 0;
 
   const mortgageAmount = projectedHousePrice - (depositPercentage * projectedHousePrice);
   const monthlyInterestRate = interestRate / 12;
@@ -46,7 +67,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   result.innerHTML = `
     <h2>Results</h2>
     <p><strong>Projected House Price (${targetYear}):</strong> £${projectedHousePrice.toLocaleString()}</p>
-    <p><strong>Required Deposit:</strong> £${Math.max(requiredDeposit, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
+    <p><strong>Required Deposit:</strong> £${Math.max(depositNeeded, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
     <p><strong>Monthly Savings Needed:</strong> £${monthlySavingsNeeded.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
     <p><strong>Estimated Monthly Mortgage Repayments:</strong> £${monthlyMortgageRepayment.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
     <p><strong>Minimum Salary Needed:</strong> £${minimumSalaryRequired.toLocaleString(undefined, {maximumFractionDigits: 2})} per year</p>
