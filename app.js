@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     result.innerHTML = "";
 
     if (!townsdata[town]) {
-      result.innerHTML = `<p style="color:red;">No data for town ${town}.</p>`;
+      alert(`⚠️ No data available for town: ${town}.`);
       return;
     }
 
@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const townData = townsdata[town][targetYear];
 
     if (!townData) {
-      result.innerHTML = `<p style="color:red;">No projection available for ${town} in year ${targetYear}.</p>`;
-      return;
+      alert(`⚠️ No projection available for ${town} in year ${targetYear}. Please adjust your target age.`);
+      return; // <<< CRITICAL: stops the calculation
     }
 
     const projectedPrice = townData.price;
@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsUntilTarget = yearsUntilTarget * 12;
     const monthlySavings = monthsUntilTarget > 0 ? depositMinusSavings / monthsUntilTarget : depositMinusSavings;
 
+    // Mortgage calculations
     const loanAmount = projectedPrice - depositRequired;
     const monthlyInterestRate = interestRate / 100 / 12;
     const totalPayments = mortgageLength * 12;
