@@ -3,52 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Downpayment Goals - How Much Money Do You Need To Save Each Month</title>
-   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/x-icon" href="https://media.istockphoto.com/id/1145840259/vector/home-flat-icon-pixel-perfect-for-mobile-and-web.jpg?s=612x612&w=0&k=20&c=2DWK30S50TbctWwccYw5b-uR6EAksv1n4L_aoatjM9Q=">
+  <title>Deposit Goals - How Much Do You Need to Put Towards A Deposit</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="townsData.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
- </head>
-<div class="content-box">
-  <body>
+<body>
+  <div class="container">
+    <h1>Deposit Goals</h1>
+    <p>Find out how much you need to save to buy a home in your town before your selected age.</p>
 
-  <h1>Downpayment Goals</h1>
-  <p>Find out how much money you need to save each month to buy your first home. The maximum differene between your current age and the age you want to buy at is 32 years.</p>
-  <form id="calculator">
-    <label for="town">Select your city:</label>
-    <select id="town" required>
-  <option value="">-- Select Town --</option>
-</select>
-    
+    <form id="calculator">
+      <label for="town">Your town or city:</label>
+      <select id="town" required>
+        <option value="">Loading towns...</option>
+      </select>
 
-    <label for="age">Your current age:</label>
-    <input type="number" id="age" required min="0">
+      <label for="age">Your current age:</label>
+      <input type="number" id="age" required>
 
-    <label for="targetAge">Age you want to buy a home:</label>
-    <input type="number" id="targetAge" required min="0">
+      <label for="targetAge">Age you want to buy a home:</label>
+      <input type="number" id="targetAge" required>
 
-    <label for="depositPercentage">Down payment percentage (3–20%):</label>
-    <input type="number" id="depositPercentage" required min="3" max="20">
+      <label for="savings">Current savings (£):</label>
+      <input type="number" id="savings" placeholder="Optional">
 
-    <label for="savings">Your current savings ($):</label>
-    <input type="number" id="savings" min="0" step="0.01" placeholder="Optional – leave blank if $0">
+      <label for="depositPercentage">Deposit percentage (%):</label>
+      <input type="number" id="depositPercentage" min="3" max="20" required>
 
+      <!-- NEW FIELDS -->
+      <label for="interestRate">Interest rate (%):</label>
+      <input type="number" id="interestRate" step="0.01" placeholder="e.g. 5" required>
 
-    <button type="submit">Calculate</button>
-  </form>
+      <label for="mortgageLength">Mortgage length (years):</label>
+      <input type="number" id="mortgageLength" placeholder="e.g. 30" required>
 
-  <div id="result"></div>
+      <button type="submit">Calculate</button>
+    </form>
 
+    <div id="result"></div>
 
-<div id="methodology">
-  <h3>How It Works</h3>
-  <p> We looked at median home prices in all the areas listed on Zillow. We then multiplied these by 2/3 to get an estimate for a typical "starter home".</p>
-  <p>We then got house price increases from 1991 to 2024 and projected these forward to work out how much these homes would cost from 2026 - 2058. These come from the Federal Housing Financing Agency</p>
-<p>You can see our full dataset here: https://docs.google.com/spreadsheets/d/1tEUIG7rXFvn2Nj-WGTr2_MSaOp9w5rJeivG7q-VKins/edit?usp=sharing</p>
-</div>
-
-  <script src="townsData.js"></script>
-  <script src="app.js"></script>
-
+    <section id="methodology">
+      <h2>How it works</h2>
+      <p>We estimate your house price based on town-specific projections. The deposit needed is based on the percentage you select. We then calculate the amount you need to save monthly to reach that deposit by your target age. Mortgage payments are estimated based on your entered interest rate and loan length, and minimum required income is based on a 28% affordability rule.</p>
+    </section>
+  </div>
 </body>
-</div>
 </html>
