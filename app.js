@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     townSelect.appendChild(option);
   });
 
-  // ✅ NOTICE: The form listener must be inside DOMContentLoaded
   document.getElementById("calculator").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -53,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsUntilTarget = yearsUntilTarget * 12;
     const monthlySavings = monthsUntilTarget > 0 ? depositMinusSavings / monthsUntilTarget : depositMinusSavings;
 
+    // Mortgage calculations
     const loanAmount = projectedPrice - depositRequired;
     const monthlyInterestRate = interestRate / 100 / 12;
     const totalPayments = mortgageLength * 12;
