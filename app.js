@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <p><strong>Required Deposit (${Math.round(depositPercentage * 100)}% of $${projectedHousePrice.toLocaleString()}) :</strong> £${Math.max(depositNeeded, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}  
   
   <p><strong>Monthly Savings Needed ($${Math.max(depositNeeded, 0).toLocaleString(undefined, {maximumFractionDigits: 2})} ÷ ${monthsToSave}):</strong> $${monthlySavingsNeeded.toLocaleString(undefined, {maximumFractionDigits: 2})} 
-  <br>(calculated as required deposit $${Math.max(depositNeeded, 0).toLocaleString(undefined, {maximumFractionDigits: 2})} ÷ ${monthsToSave} months)</p>
+  <br><br>(Calculated as required deposit $${Math.max(depositNeeded, 0).toLocaleString(undefined, {maximumFractionDigits: 2})} ÷ ${monthsToSave} months)</p>
   
   <p><strong>Estimated Monthly Mortgage Repayments:</strong> $${monthlyMortgageRepayment.toLocaleString(undefined, {maximumFractionDigits: 2})}  
   <br><br>(Calculated on loan amount $${mortgageAmount.toLocaleString(undefined, {maximumFractionDigits: 2})} over ${mortgageLength} years at ${ (interestRate * 100).toFixed(2) }% interest)</p>
