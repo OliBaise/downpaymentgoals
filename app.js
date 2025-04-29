@@ -116,7 +116,7 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   <p style="font-size: 0.9em; color: #555;">
     (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}%, and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
   </p>
-    <p><strong>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary):</strong> $${safeCurrency(salaryNeeded)}</p>
+    <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
   `;
 
   if (monthlySaving > 0) {
