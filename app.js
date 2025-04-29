@@ -88,10 +88,9 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const monthlyInterestRate = interestRate / 12;
   const numberOfPayments = mortgageLength * 12;
 
-  const monthlyMortgagePayment = loanAmount * (
-    (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
-    (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1)
-  );
+  const monthlyMortgagePayment = loanAmount * 
+  (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+  (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
