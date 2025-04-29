@@ -93,8 +93,11 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   if (monthlySaving) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p><strong>At $${monthlySaving.toLocaleString()} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
-  }
+   if (monthlySaving > 0) {
+  const formattedMonthlySaving = monthlySaving.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${formattedMonthlySaving} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+}
+
 
   result.innerHTML = html;
 });
