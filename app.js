@@ -19,24 +19,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 2. Add form submit event listener
-  document.getElementById("calculator").addEventListener("submit", function (e) {
-    e.preventDefault();
+ document.getElementById("calculator").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    const town = document.getElementById("town").value;
-    const currentAge = parseInt(document.getElementById("age").value);
-    const targetAge = parseInt(document.getElementById("targetAge").value);
-    const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
-    const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
-    const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
-    const mortgageLength = parseInt(document.getElementById("mortgageLength").value);
+  const town = document.getElementById("town").value;
+  const currentAge = parseInt(document.getElementById("age").value);
+  const targetAge = parseInt(document.getElementById("targetAge").value);
+  const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
+  const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
+  const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
+  const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+  const mortgageLength = parseInt(document.getElementById("mortgageLength").value);
 
-    const result = document.getElementById("result");
-    result.innerHTML = "";
+  const result = document.getElementById("result");
+  result.innerHTML = "";
 
-    if (!townsdata[town]) {
-      result.innerHTML = `<p style="color:red;">No data available for town: ${town}</p>`;
-      return;
-    }
+  // ✅ NEW validation: must have either targetAge or monthlySaving
+  if (!targetAge && !monthlySaving) {
+    result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
+    return;
+  }
+
+  // ✅ If the validation passes, your existing calculation logic continues after here
+});
 
     const currentYear = 2025;
     const yearsToTarget = targetAge - currentAge;
