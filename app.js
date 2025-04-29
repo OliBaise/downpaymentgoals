@@ -108,22 +108,26 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
   let html = `
-    <p>Estimated starter house price when you can afford your down payment (${targetYear}) : <strong>$${safeCurrency(housePrice)}</strong></p>
-    <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
-    <p>Down payment required minus current savings:<strong>$${safeCurrency(depositNeeded)}</strong></p>
+  <p>Estimated starter house price when you can afford your down payment (${targetYear}) : <strong>$${safeCurrency(housePrice)}</strong></p>
+  <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
+  <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
+`;
+
 if (targetAge) {
   html += `<p><strong>Monthly savings needed:</strong> $${safeFixed(monthlySavingsNeeded)}</p>`;
-}      <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
+}
+
+html += `
+  <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
   <p style="font-size: 0.9em; color: #555;">
     (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}%, and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
   </p>
-    <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
-  `;
+  <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
+`;
 
-  if (monthlySaving > 0) {
-    const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
-  }
-
+if (monthlySaving > 0) {
+  const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
+  html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+}
   result.innerHTML = html;
 });
