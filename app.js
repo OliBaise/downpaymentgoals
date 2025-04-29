@@ -1,3 +1,24 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const townSelect = document.getElementById("town");
+
+  if (typeof townsdata === "undefined") {
+    console.error("❌ townsdata is not defined. Check if townsData.js is loaded correctly.");
+    return;
+  }
+
+  const towns = Object.keys(townsdata).sort();
+
+  townSelect.innerHTML = `<option value="">Select your town or city</option>`;
+
+  towns.forEach(function(town) {
+    const option = document.createElement("option");
+    option.value = town;
+    option.textContent = town;
+    townSelect.appendChild(option);
+  });
+});
+
+
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
