@@ -45,7 +45,15 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   const currentYear = new Date().getFullYear();
-  const targetYear = targetAge ? currentYear + (targetAge - currentAge) : currentYear;
+let targetYear;
+
+if (targetAge) {
+  targetYear = currentYear + (targetAge - currentAge);
+} else {
+  // Default to the earliest year we have data for
+  const availableYears = Object.keys(townYears).map(y => parseInt(y)).sort((a, b) => a - b);
+  targetYear = availableYears[0]; // First (earliest) year
+}
 
   const townYears = townsdata[town];
   const townData = townYears[targetYear];
