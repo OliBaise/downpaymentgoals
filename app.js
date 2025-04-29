@@ -1,3 +1,13 @@
+// 🔧 Safe formatting functions
+function safeCurrency(n) {
+  return isNaN(n) ? "—" : n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+}
+
+function safeFixed(n) {
+  return isNaN(n) ? "—" : n.toFixed(0);
+}
+
+// 🔵 Populate towns dropdown on page load
 document.addEventListener("DOMContentLoaded", function () {
   const townSelect = document.getElementById("town");
 
@@ -7,10 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const towns = Object.keys(townsdata).sort();
-
   townSelect.innerHTML = `<option value="">Select your town or city</option>`;
 
-  towns.forEach(function(town) {
+  towns.forEach(function (town) {
     const option = document.createElement("option");
     option.value = town;
     option.textContent = town;
@@ -18,13 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
+// 🔵 Handle calculator submission
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const town = document.getElementById("town").value;
   const currentAge = parseInt(document.getElementById("age").value);
-  const targetAge = parseInt(document.getElementById("targetAge").value);
+  const targetAgeInput = document.getElementById("targetAge").value;
+  const targetAge = targetAgeInput ? parseInt(targetAgeInput) : null;
   const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
   const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
   const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
@@ -71,33 +81,33 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
     return;
   }
 
-  const numberOfMonths = (targetAge ? (targetAge - currentAge) * 12 : 12); // Default to 1 year if no targetAge
+  const numberOfMonths = targetAge ? (targetAge - currentAge) * 12 : 12;
   const monthlySavingsNeeded = depositNeeded / numberOfMonths;
 
   const loanAmount = housePrice - depositRequired;
   const monthlyInterestRate = interestRate / 12;
   const numberOfPayments = mortgageLength * 12;
 
-  const monthlyMortgagePayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+  const monthlyMortgagePayment = loanAmount * (
+    (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+    (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1)
+  );
 
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
   let html = `
-    <p><strong>Projected house price:</strong> $${housePrice.toLocaleString()}</p>
-    <p><strong>Deposit required (${(depositPercentage * 100).toFixed(0)}% of house price):</strong> $${depositRequired.toLocaleString()}</p>
-    <p><strong>Deposit needed after current savings:</strong> $${depositNeeded.toLocaleString()}</p>
-    <p><strong>Monthly savings needed:</strong> $${monthlySavingsNeeded.toFixed(0)}</p>
-    <p><strong>Estimated monthly mortgage repayment:</strong> $${monthlyMortgagePayment.toFixed(0)}</p>
-    <p><strong>Salary needed to afford mortgage:</strong> $${salaryNeeded.toLocaleString()}</p>
+    <p><strong>Projected house price:</strong> $${safeCurrency(housePrice)}</p>
+    <p><strong>Deposit required (${(depositPercentage * 100).toFixed(0)}% of house price):</strong> $${safeCurrency(depositRequired)}</p>
+    <p><strong>Deposit needed after current savings:</strong> $${safeCurrency(depositNeeded)}</p>
+    <p><strong>Monthly savings needed:</strong> $${safeFixed(monthlySavingsNeeded)}</p>
+    <p><strong>Estimated monthly mortgage repayment:</strong> $${safeFixed(monthlyMortgagePayment)}</p>
+    <p><strong>Salary needed to afford mortgage:</strong> $${safeCurrency(salaryNeeded)}</p>
   `;
 
-  if (monthlySaving) {
+  if (monthlySaving > 0) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-   if (monthlySaving > 0) {
-  const formattedMonthlySaving = monthlySaving.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-  html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${formattedMonthlySaving} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
-}
-
+    html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+  }
 
   result.innerHTML = html;
 });
