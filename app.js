@@ -139,7 +139,8 @@ html += `
 
 if (monthlySaving > 0) {
   const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
- html += `<p style="margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+  html += `<p style="margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+}
 
-  result.innerHTML = html;
+result.innerHTML = html;
 });
