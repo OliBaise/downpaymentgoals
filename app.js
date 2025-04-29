@@ -119,15 +119,15 @@ if (targetAge) {
 
 html += `
   <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
-  <p style="font-size: 0.9em; color: #555;">
-    (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}%, and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
-  </p>
+ <p style="font-size: 0.9em; color: #555;">
+  (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% — calculated as your ${interestRate * 100}% annual interest rate divided by 12 — and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
+</p>
   <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
 `;
 
 if (monthlySaving > 0) {
   const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-  html += `<p style="color:#007BFF; margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
-}
+ html += `<p style="margin-top:10px;"><strong>At $${safeCurrency(monthlySaving)} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
+
   result.innerHTML = html;
 });
