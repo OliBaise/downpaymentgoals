@@ -1,45 +1,36 @@
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
-const town = document.getElementById("town").value;
-const currentAge = parseInt(document.getElementById("age").value);
-const targetAge = parseInt(document.getElementById("targetAge").value);
-const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
-const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
-const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
-const interestRate = (parseFloat(document.getElementById("interestRate").value) / 100) || 0.05;
-const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
+  const town = document.getElementById("town").value;
+  const currentAge = parseInt(document.getElementById("age").value);
+  const targetAge = parseInt(document.getElementById("targetAge").value);
+  const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
+  const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
+  const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
+  const interestRate = (parseFloat(document.getElementById("interestRate").value) / 100) || 0.05;
+  const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
 
-const result = document.getElementById("result");
-result.innerHTML = "";
+  const result = document.getElementById("result");
+  result.innerHTML = "";
 
-// Check town exists
-if (!townsdata[town]) {
-  result.innerHTML = `<p style="color: red;">⚠️ No data available for town: ${town}.</p>`;
-  return;
-}
+  if (!targetAge && !monthlySaving) {
+    result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
+    return;
+  }
 
-// Calculate current year and target year
-const currentYear = new Date().getFullYear();
-const targetYear = targetAge ? currentYear + (targetAge - currentAge) : currentYear;
-
-// Get town data
-const townYears = townsdata[town];
-const townData = townYears[targetYear];
-
-if (!townData) {
-  result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
-  return;
-}
-
-// THEN continue with your calculations!
+  if (!townsdata[town]) {
+    result.innerHTML = `<p style="color: red;">⚠️ No data available for town: ${town}.</p>`;
+    return;
+  }
 
   const currentYear = new Date().getFullYear();
   const targetYear = targetAge ? currentYear + (targetAge - currentAge) : currentYear;
-  const townData = townsdata[town][targetYear];
+
+  const townYears = townsdata[town];
+  const townData = townYears[targetYear];
 
   if (!townData) {
-    result.innerHTML = `<p style="color: red;">⚠️ No house price data available for that year.</p>`;
+    result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
     return;
   }
 
@@ -61,7 +52,7 @@ if (!townData) {
 
   const monthlyMortgagePayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 
-  const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28; // Based on 28% rule
+  const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
   let html = `
     <p><strong>Projected house price:</strong> $${housePrice.toLocaleString()}</p>
@@ -72,7 +63,6 @@ if (!townData) {
     <p><strong>Salary needed to afford mortgage:</strong> $${salaryNeeded.toLocaleString()}</p>
   `;
 
-  // ✅ ADDITION: if user filled monthly saving, show how many months it would take
   if (monthlySaving) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
     html += `<p><strong>At $${monthlySaving.toLocaleString()} saved per month, you would need approximately ${monthsToSave} months to save for your deposit.</strong></p>`;
