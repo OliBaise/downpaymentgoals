@@ -32,17 +32,29 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const town = document.getElementById("town").value;
-  const currentAge = parseInt(document.getElementById("age").value);
-  const targetAgeInput = document.getElementById("targetAge").value;
-  const targetAge = targetAgeInput ? parseInt(targetAgeInput) : null;
-  const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
-  const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
-  const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
-  const interestRate = (parseFloat(document.getElementById("interestRate").value) / 100) || 0.05;
-  const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
+const currentAge = parseInt(document.getElementById("age").value);
+const targetAgeInput = document.getElementById("targetAge").value;
+const targetAge = targetAgeInput ? parseInt(targetAgeInput) : null;
+const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
+const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
+const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
+const interestRate = (parseFloat(document.getElementById("interestRate").value) / 100) || 0.05;
+const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
 
-  const result = document.getElementById("result");
-  result.innerHTML = "";
+const result = document.getElementById("result");
+result.innerHTML = "";
+
+// ✅ NEW CHECK
+if (targetAge && monthlySaving) {
+  result.innerHTML = `<p style="color: red;">⚠️ Please fill in only one: either the "Age you want to buy a home" or the "Monthly amount you can save" — not both.</p>`;
+  return;
+}
+
+// ✅ EXISTING CHECK
+if (!targetAge && !monthlySaving) {
+  result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
+  return;
+}
 
   if (!targetAge && !monthlySaving) {
     result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
