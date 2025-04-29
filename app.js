@@ -56,14 +56,27 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   const currentYear = new Date().getFullYear();
   const townYears = townsdata[town];
+let targetYear;
 
-  let targetYear;
-  if (targetAge) {
-    targetYear = currentYear + (targetAge - currentAge);
-  } else {
-    const availableYears = Object.keys(townYears).map(y => parseInt(y)).sort((a, b) => a - b);
-    targetYear = availableYears[0];
+const availableYears = Object.keys(townYears).map(y => parseInt(y)).sort((a, b) => a - b);
+
+if (targetAge) {
+  targetYear = currentYear + (targetAge - currentAge);
+} else if (monthlySaving > 0) {
+  const rawPriceNow = parseFloat(townYears[availableYears[0]].toString().replace(/,/g, ''));
+  const depositRequiredNow = rawPriceNow * depositPercentage;
+  const depositNeededNow = depositRequiredNow - currentSavings;
+  const monthsToSave = Math.ceil(depositNeededNow / monthlySaving);
+  const yearsToSave = Math.ceil(monthsToSave / 12);
+  targetYear = currentYear + yearsToSave;
+
+  // Fallback if targetYear exceeds dataset
+  if (!townYears[targetYear]) {
+    targetYear = availableYears[availableYears.length - 1];
   }
+} else {
+  targetYear = availableYears[0];
+}
 
 const rawPrice = townYears[targetYear];
 
@@ -95,12 +108,12 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
   let html = `
-    <p><strong>Projected house price:</strong> $${safeCurrency(housePrice)}</p>
-    <p><strong>Deposit required (${(depositPercentage * 100).toFixed(0)}% of house price):</strong> $${safeCurrency(depositRequired)}</p>
-    <p><strong>Deposit needed after current savings:</strong> $${safeCurrency(depositNeeded)}</p>
+    <p><strong>Starter house price when you can afford your down payment (${targetYear}) :</strong> $${safeCurrency(housePrice)}</p>
+    <p><strong>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price):</strong> $${safeCurrency(depositRequired)}</p>
+    <p><strong>Down payment required minus current savings:</strong> $${safeCurrency(depositNeeded)}</p>
     <p><strong>Monthly savings needed:</strong> $${safeFixed(monthlySavingsNeeded)}</p>
     <p><strong>Estimated monthly mortgage repayment:</strong> $${safeFixed(monthlyMortgagePayment)}</p>
-    <p><strong>Salary needed to afford mortgage:</strong> $${safeCurrency(salaryNeeded)}</p>
+    <p><strong>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary):</strong> $${safeCurrency(salaryNeeded)}</p>
   `;
 
   if (monthlySaving > 0) {
