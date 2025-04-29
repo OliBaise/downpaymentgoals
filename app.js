@@ -111,8 +111,9 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
     <p>Estimated starter house price when you can afford your down payment (${targetYear}) : <strong>$${safeCurrency(housePrice)}</strong></p>
     <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
     <p>Down payment required minus current savings:<strong>$${safeCurrency(depositNeeded)}</strong></p>
-    <p>Monthly savings needed: <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>
-      <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
+if (targetAge) {
+  html += `<p><strong>Monthly savings needed:</strong> $${safeFixed(monthlySavingsNeeded)}</p>`;
+}      <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
   <p style="font-size: 0.9em; color: #555;">
     (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}%, and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
   </p>
