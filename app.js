@@ -65,14 +65,14 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
     targetYear = availableYears[0];
   }
 
-  const townData = townYears[targetYear];
+const rawPrice = townYears[targetYear];
 
-  if (!townData) {
-    result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
-    return;
-  }
+if (!rawPrice) {
+  result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
+  return;
+}
 
-  const housePrice = townData.price;
+const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   const depositRequired = housePrice * depositPercentage;
   const depositNeeded = depositRequired - currentSavings;
 
