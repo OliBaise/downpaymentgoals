@@ -45,17 +45,16 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   const currentYear = new Date().getFullYear();
-let targetYear;
-
-if (targetAge) {
-  targetYear = currentYear + (targetAge - currentAge);
-} else {
-  // Default to the earliest year we have data for
-  const availableYears = Object.keys(townYears).map(y => parseInt(y)).sort((a, b) => a - b);
-  targetYear = availableYears[0]; // First (earliest) year
-}
-
   const townYears = townsdata[town];
+
+  let targetYear;
+  if (targetAge) {
+    targetYear = currentYear + (targetAge - currentAge);
+  } else {
+    const availableYears = Object.keys(townYears).map(y => parseInt(y)).sort((a, b) => a - b);
+    targetYear = availableYears[0];
+  }
+
   const townData = townYears[targetYear];
 
   if (!townData) {
@@ -72,7 +71,7 @@ if (targetAge) {
     return;
   }
 
-  const numberOfMonths = (targetAge - currentAge) * 12;
+  const numberOfMonths = (targetAge ? (targetAge - currentAge) * 12 : 12); // Default to 1 year if no targetAge
   const monthlySavingsNeeded = depositNeeded / numberOfMonths;
 
   const loanAmount = housePrice - depositRequired;
