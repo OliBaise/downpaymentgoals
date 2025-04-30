@@ -132,7 +132,8 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
 `;
 
 if (targetAge) {
-  html += `<p>Monthly savings needed: <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
+  const monthsToSave = (targetAge - currentAge) * 12;
+  html += `<p>Monthly savings needed ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${monthsToSave} months): <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
 }
 
 html += `
