@@ -138,8 +138,8 @@ if (targetAge) {
 
 html += `
   <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
- <p style="font-size: 0.9em; color: #555;">
-  (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% — calculated as your ${interestRate * 100}% annual interest rate divided by 12 — and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
+<p style="font-size: 0.9em; color: #555;">
+  (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% — calculated as your ${(interestRate * 100).toFixed(2)}% annual interest rate divided by 12 — and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
 </p>
   <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
 `;
