@@ -221,7 +221,7 @@ const townsdata = {
     "Current Median House Price": "86,792",
     "NSA Since 1991": 2.3037
   },
-  "Allentown-Bethlehem-Easton, PA-NJ": {
+  "Allentown-Bethlehem-Easton, PA": {
     "2026": "228,047.28",
     "2027": "228,469.60",
     "2028": "228,919.17",
@@ -332,7 +332,7 @@ const townsdata = {
     "Current Median House Price": "173,784",
     "NSA Since 1991": 2.8413
   },
-  "Anaheim-Santa Ana-Irvine, CA (MSAD)": {
+  "Anaheim-Santa Ana-Irvine, CA": {
     "2026": "723,494.96",
     "2027": "725,795.84",
     "2028": "728,245.15",
@@ -665,7 +665,7 @@ const townsdata = {
     "Current Median House Price": "211,778",
     "NSA Since 1991": 2.7852
   },
-  "Augusta-Richmond County, GA-SC": {
+  "Augusta-Richmond County, GA": {
     "2026": "122,185.91",
     "2027": "122,434.22",
     "2028": "122,698.55",
@@ -1405,7 +1405,7 @@ const townsdata = {
     "Current Median House Price": "320,000",
     "NSA Since 1991": 5.4652
   },
-  "Boston, MA (MSAD)": {
+  "Boston, MA": {
     "2026": "618,893.64",
     "2027": "620,823.47",
     "2028": "622,877.81",
@@ -1775,7 +1775,7 @@ const townsdata = {
     "Current Median House Price": "166,667",
     "NSA Since 1991": 2.3648
   },
-  "Cambridge-Newton-Framingham, MA (MSAD)": {
+  "Cambridge-Newton-Framingham, MA": {
     "2026": "1,034,769.33",
     "2027": "1,037,939.21",
     "2028": "1,041,313.61",
@@ -1812,7 +1812,7 @@ const townsdata = {
     "Current Median House Price": "933,333",
     "NSA Since 1991": 3.5865
   },
-  "Camden, NJ (MSAD)": {
+  "Camden, NJ": {
     "2026": "108,020.27",
     "2027": "108,250.06",
     "2028": "108,494.67",
@@ -1923,7 +1923,7 @@ const townsdata = {
     "Current Median House Price": "260,000",
     "NSA Since 1991": 3.5301
   },
-  "Cape Girardeau, MO-IL": {
+  "Cape Girardeau, MO": {
     "2026": "159,904.45",
     "2027": "160,216.06",
     "2028": "160,547.77",
@@ -2219,7 +2219,7 @@ const townsdata = {
     "Current Median House Price": "105,000",
     "NSA Since 1991": 1.8922
   },
-  "Charlotte-Concord-Gastonia, NC-SC": {
+  "Charlotte-Concord-Gastonia, NC": {
     "2026": "278,683.09",
     "2027": "279,517.62",
     "2028": "280,406.00",
@@ -2293,7 +2293,7 @@ const townsdata = {
     "Current Median House Price": "322,667",
     "NSA Since 1991": 3.3222
   },
-  "Chattanooga, TN-GA": {
+  "Chattanooga, TN": {
     "2026": "282,193.02",
     "2027": "283,057.40",
     "2028": "283,977.54",
@@ -2367,7 +2367,7 @@ const townsdata = {
     "Current Median House Price": "233,333",
     "NSA Since 1991": 3.8991
   },
-  "Chicago-Naperville-Evanston, IL (MSAD)": {
+  "Chicago-Naperville-Evanston, IL": {
     "2026": "255,170.18",
     "2027": "255,644.25",
     "2028": "256,148.90",
@@ -2441,7 +2441,7 @@ const townsdata = {
     "Current Median House Price": "337,400",
     "NSA Since 1991": 2.6944
   },
-  "Cincinnati, OH-KY-IN": {
+  "Cincinnati, OH": {
     "2026": "173,581.79",
     "2027": "173,959.78",
     "2028": "174,362.16",
@@ -2700,7 +2700,7 @@ const townsdata = {
     "Current Median House Price": "172,600",
     "NSA Since 1991": 2.484
   },
-  "Columbus, GA-AL": {
+  "Columbus, GA": {
     "2026": "141,268.66",
     "2027": "141,517.72",
     "2028": "141,782.84",
@@ -2922,7 +2922,7 @@ const townsdata = {
     "Current Median House Price": "243,333",
     "NSA Since 1991": 4.1965
   },
-  "Dallas-Plano-Irving, TX (MSAD)": {
+  "Dallas-Plano-Irving, TX": {
     "2026": "208,194.03",
     "2027": "208,818.13",
     "2028": "209,482.48",
@@ -3033,7 +3033,7 @@ const townsdata = {
     "Current Median House Price": "255,836",
     "NSA Since 1991": 4.0239
   },
-  "Davenport-Moline-Rock Island, IA-IL": {
+  "Davenport-Moline-Rock Island, IA": {
     "2026": "126,691.77",
     "2027": "126,957.04",
     "2028": "127,239.43",
@@ -3292,7 +3292,7 @@ const townsdata = {
     "Current Median House Price": "206,333",
     "NSA Since 1991": 2.5381
   },
-  "Detroit-Dearborn-Livonia, MI (MSAD)": {
+  "Detroit-Dearborn-Livonia, MI": {
     "2026": "200,938.39",
     "2027": "201,342.71",
     "2028": "201,773.12",
@@ -3440,7 +3440,7 @@ const townsdata = {
     "Current Median House Price": "179,933",
     "NSA Since 1991": 2.7361
   },
-  "Duluth, MN-WI": {
+  "Duluth, MN": {
     "2026": "192,147.61",
     "2027": "192,804.32",
     "2028": "193,503.40",
@@ -3625,7 +3625,7 @@ const townsdata = {
     "Current Median House Price": "170,000",
     "NSA Since 1991": 2.3709
   },
-  "Elgin, IL (MSAD)": {
+  "Elgin, IL": {
     "2026": "244,141.21",
     "2027": "244,531.03",
     "2028": "244,946.00",
@@ -3847,7 +3847,7 @@ const townsdata = {
     "Current Median House Price": "303,107",
     "NSA Since 1991": 4.5938
   },
-  "Evansville, IN-KY": {
+  "Evansville, IN": {
     "2026": "138,623.43",
     "2027": "138,922.07",
     "2028": "139,239.98",
@@ -3921,7 +3921,7 @@ const townsdata = {
     "Current Median House Price": "211,667",
     "NSA Since 1991": 2.2395
   },
-  "Fargo, ND-MN": {
+  "Fargo, ND": {
     "2026": "221,340.29",
     "2027": "221,903.02",
     "2028": "222,502.05",
@@ -4254,7 +4254,7 @@ const townsdata = {
     "Current Median House Price": "401,333",
     "NSA Since 1991": 5.4483
   },
-  "Fort Lauderdale-Pompano Beach-Sunrise, FL (MSAD)": {
+  "Fort Lauderdale-Pompano Beach-Sunrise, FL": {
     "2026": "283,460.00",
     "2027": "284,609.78",
     "2028": "285,833.74",
@@ -4291,7 +4291,7 @@ const townsdata = {
     "Current Median House Price": "246,667",
     "NSA Since 1991": 4.9223
   },
-  "Fort Smith, AR-OK": {
+  "Fort Smith, AR": {
     "2026": "136,972.73",
     "2027": "137,267.00",
     "2028": "137,580.26",
@@ -4365,7 +4365,7 @@ const townsdata = {
     "Current Median House Price": "156,667",
     "NSA Since 1991": 2.3964
   },
-  "Fort Worth-Arlington-Grapevine, TX (MSAD)": {
+  "Fort Worth-Arlington-Grapevine, TX": {
     "2026": "273,495.03",
     "2027": "274,259.66",
     "2028": "275,073.62",
@@ -4402,7 +4402,7 @@ const townsdata = {
     "Current Median House Price": "249,027",
     "NSA Since 1991": 3.2424
   },
-  "Frederick-Gaithersburg-Rockville, MD (MSAD)": {
+  "Frederick-Gaithersburg-Rockville, MD": {
     "2026": "320,788.93",
     "2027": "321,499.77",
     "2028": "322,256.47",
@@ -4550,7 +4550,7 @@ const townsdata = {
     "Current Median House Price": "245,714",
     "NSA Since 1991": 3.5272
   },
-  "Gary, IN (MSAD)": {
+  "Gary, IN": {
     "2026": "65,843.39",
     "2027": "65,984.34",
     "2028": "66,134.38",
@@ -4661,7 +4661,7 @@ const townsdata = {
     "Current Median House Price": "179,933",
     "NSA Since 1991": 2.1322
   },
-  "Grand Forks, ND-MN": {
+  "Grand Forks, ND": {
     "2026": "255,399.13",
     "2027": "256,080.35",
     "2028": "256,805.52",
@@ -5031,7 +5031,7 @@ const townsdata = {
     "Current Median House Price": "155,067",
     "NSA Since 1991": 2.8542
   },
-  "Hagerstown-Martinsburg, MD-WV": {
+  "Hagerstown-Martinsburg, MD": {
     "2026": "215,454.98",
     "2027": "215,896.30",
     "2028": "216,366.08",
@@ -5438,7 +5438,7 @@ const townsdata = {
     "Current Median House Price": "215,177",
     "NSA Since 1991": 3.265
   },
-  "Huntington-Ashland, WV-KY-OH": {
+  "Huntington-Ashland, WV": {
     "2026": "106,007.88",
     "2027": "106,216.47",
     "2028": "106,438.51",
@@ -6067,7 +6067,7 @@ const townsdata = {
     "Current Median House Price": "106,667",
     "NSA Since 1991": 1.8762
   },
-  "Kansas City, MO-KS": {
+  "Kansas City, MO": {
     "2026": "207,309.00",
     "2027": "207,849.91",
     "2028": "208,425.71",
@@ -6178,7 +6178,7 @@ const townsdata = {
     "Current Median House Price": "160,000",
     "NSA Since 1991": 2.8188
   },
-  "Kingsport-Bristol, TN-VA": {
+  "Kingsport-Bristol, TN": {
     "2026": "180,396.16",
     "2027": "180,929.57",
     "2028": "181,497.39",
@@ -6326,7 +6326,7 @@ const townsdata = {
     "Current Median House Price": "112,000",
     "NSA Since 1991": 2.1504
   },
-  "La Crosse-Onalaska, WI-MN": {
+  "La Crosse-Onalaska, WI": {
     "2026": "169,487.76",
     "2027": "169,994.66",
     "2028": "170,534.26",
@@ -6474,7 +6474,7 @@ const townsdata = {
     "Current Median House Price": "172,000",
     "NSA Since 1991": 2.0033
   },
-  "Lake County-Kenosha County, IL-WI (MSAD)": {
+  "Lake County-Kenosha County, IL": {
     "2026": "267,119.69",
     "2027": "267,550.52",
     "2028": "268,009.15",
@@ -6992,7 +6992,7 @@ const townsdata = {
     "Current Median House Price": "140,467",
     "NSA Since 1991": 2.2255
   },
-  "Logan, UT-ID": {
+  "Logan, UT": {
     "2026": "299,323.59",
     "2027": "300,616.45",
     "2028": "301,992.73",
@@ -7103,7 +7103,7 @@ const townsdata = {
     "Current Median House Price": "260,000",
     "NSA Since 1991": 4.3876
   },
-  "Los Angeles-Long Beach-Glendale, CA (MSAD)": {
+  "Los Angeles-Long Beach-Glendale, CA": {
     "2026": "895,768.95",
     "2027": "898,393.42",
     "2028": "901,187.21",
@@ -7140,7 +7140,7 @@ const townsdata = {
     "Current Median House Price": "811,786",
     "NSA Since 1991": 3.414
   },
-  "Louisville/Jefferson County, KY-IN": {
+  "Louisville/Jefferson County, KY": {
     "2026": "181,400.87",
     "2027": "181,861.30",
     "2028": "182,351.44",
@@ -7584,7 +7584,7 @@ const townsdata = {
     "Current Median House Price": "266,667",
     "NSA Since 1991": 4.0367
   },
-  "Memphis, TN-MS-AR": {
+  "Memphis, TN": {
     "2026": "102,123.30",
     "2027": "102,311.94",
     "2028": "102,512.74",
@@ -7658,7 +7658,7 @@ const townsdata = {
     "Current Median House Price": "282,000",
     "NSA Since 1991": 2.69
   },
-  "Miami-Miami Beach-Kendall, FL (MSAD)": {
+  "Miami-Miami Beach-Kendall, FL": {
     "2026": "424,735.91",
     "2027": "426,972.91",
     "2028": "429,354.23",
@@ -7843,7 +7843,7 @@ const townsdata = {
     "Current Median House Price": "220,000",
     "NSA Since 1991": 2.9631
   },
-  "Minneapolis-St. Paul-Bloomington, MN-WI": {
+  "Minneapolis-St. Paul-Bloomington, MN": {
     "2026": "257,572.50",
     "2027": "258,248.48",
     "2028": "258,968.08",
@@ -8065,7 +8065,7 @@ const townsdata = {
     "Current Median House Price": "149,333",
     "NSA Since 1991": 2.1767
   },
-  "Montgomery County-Bucks County-Chester County, PA (MSAD)": {
+  "Montgomery County-Bucks County-Chester County, PA": {
     "2026": "309,204.47",
     "2027": "309,868.36",
     "2028": "310,575.08",
@@ -8250,7 +8250,7 @@ const townsdata = {
     "Current Median House Price": "146,600",
     "NSA Since 1991": 3.2699
   },
-  "Myrtle Beach-Conway-North Myrtle Beach, SC-NC": {
+  "Myrtle Beach-Conway-North Myrtle Beach, SC": {
     "2026": "295,610.93",
     "2027": "296,517.52",
     "2028": "297,482.60",
@@ -8398,7 +8398,7 @@ const townsdata = {
     "Current Median House Price": "336,667",
     "NSA Since 1991": 4.671
   },
-  "Nassau County-Suffolk County, NY (MSAD)": {
+  "Nassau County-Suffolk County, NY": {
     "2026": "573,922.96",
     "2027": "575,691.40",
     "2028": "577,573.92",
@@ -8472,7 +8472,7 @@ const townsdata = {
     "Current Median House Price": "224,667",
     "NSA Since 1991": 2.5194
   },
-  "New Brunswick-Lakewood, NJ (MSAD)": {
+  "New Brunswick-Lakewood, NJ": {
     "2026": "449,981.43",
     "2027": "451,211.81",
     "2028": "452,521.58",
@@ -8583,7 +8583,7 @@ const townsdata = {
     "Current Median House Price": "219,800",
     "NSA Since 1991": 2.8527
   },
-  "New York-Jersey City-White Plains, NY-NJ (MSAD)": {
+  "New York-Jersey City-White Plains, NY": {
     "2026": "487,425.64",
     "2027": "488,732.69",
     "2028": "490,124.06",
@@ -8620,7 +8620,7 @@ const townsdata = {
     "Current Median House Price": "445,600",
     "NSA Since 1991": 3.0975
   },
-  "Newark, NJ-PA (MSAD)": {
+  "Newark, NJ": {
     "2026": "409,115.15",
     "2027": "410,129.15",
     "2028": "411,208.58",
@@ -8768,7 +8768,7 @@ const townsdata = {
     "Current Median House Price": "255,424",
     "NSA Since 1991": 1.8451
   },
-  "Oakland-Berkeley-Livermore, CA (MSAD)": {
+  "Oakland-Berkeley-Livermore, CA": {
     "2026": "924,694.07",
     "2027": "927,549.11",
     "2028": "930,588.34",
@@ -9397,7 +9397,7 @@ const townsdata = {
     "Current Median House Price": "102,533",
     "NSA Since 1991": 1.9808
   },
-  "Philadelphia, PA (MSAD)": {
+  "Philadelphia, PA": {
     "2026": "181,127.63",
     "2027": "181,579.53",
     "2028": "182,060.58",
@@ -9656,7 +9656,7 @@ const townsdata = {
     "Current Median House Price": "401,667",
     "NSA Since 1991": 3.682
   },
-  "Portland-Vancouver-Hillsboro, OR-WA": {
+  "Portland-Vancouver-Hillsboro, OR": {
     "2026": "424,255.94",
     "2027": "426,055.60",
     "2028": "427,971.36",
@@ -9767,7 +9767,7 @@ const townsdata = {
     "Current Median House Price": "399,993",
     "NSA Since 1991": 4.3929
   },
-  "Providence-Warwick, RI-MA": {
+  "Providence-Warwick, RI": {
     "2026": "354,691.73",
     "2027": "355,586.25",
     "2028": "356,538.49",
@@ -10359,7 +10359,7 @@ const townsdata = {
     "Current Median House Price": "113,267",
     "NSA Since 1991": 3.4264
   },
-  "Rockingham County-Strafford County, NH (MSAD)": {
+  "Rockingham County-Strafford County, NH": {
     "2026": "330,586.61",
     "2027": "331,146.60",
     "2028": "331,742.71",
@@ -10618,7 +10618,7 @@ const townsdata = {
     "Current Median House Price": "492,000",
     "NSA Since 1991": 3.192
   },
-  "Salisbury, MD-DE": {
+  "Salisbury, MD": {
     "2026": "215,178.55",
     "2027": "216,277.88",
     "2028": "217,448.13",
@@ -10803,7 +10803,7 @@ const townsdata = {
     "Current Median House Price": "600,000",
     "NSA Since 1991": 3.761
   },
-  "San Francisco-San Mateo-Redwood City, CA (MSAD)": {
+  "San Francisco-San Mateo-Redwood City, CA": {
     "2026": "1,282,040.03",
     "2027": "1,286,687.12",
     "2028": "1,291,634.03",
@@ -10914,7 +10914,7 @@ const townsdata = {
     "Current Median House Price": "603,928",
     "NSA Since 1991": 3.0518
   },
-  "San Rafael, CA (MSAD)": {
+  "San Rafael, CA": {
     "2026": "807,450.74",
     "2027": "809,766.92",
     "2028": "812,232.53",
@@ -11173,7 +11173,7 @@ const townsdata = {
     "Current Median House Price": "114,889",
     "NSA Since 1991": 2.14
   },
-  "Seattle-Bellevue-Kent, WA (MSAD)": {
+  "Seattle-Bellevue-Kent, WA": {
     "2026": "648,512.24",
     "2027": "651,104.40",
     "2028": "653,863.80",
@@ -11358,7 +11358,7 @@ const townsdata = {
     "Current Median House Price": "156,667",
     "NSA Since 1991": 1.83
   },
-  "Sioux City, IA-NE-SD": {
+  "Sioux City, IA": {
     "2026": "142,133.33",
     "2027": "142,512.50",
     "2028": "142,916.13",
@@ -11432,7 +11432,7 @@ const townsdata = {
     "Current Median House Price": "210,800",
     "NSA Since 1991": 3.48
   },
-  "South Bend-Mishawaka, IN-MI": {
+  "South Bend-Mishawaka, IN": {
     "2026": "158,257.80",
     "2027": "158,624.14",
     "2028": "159,014.11",
@@ -11765,7 +11765,7 @@ const townsdata = {
     "Current Median House Price": "340,484",
     "NSA Since 1991": 4.39
   },
-  "St. Joseph, MO-KS": {
+  "St. Joseph, MO": {
     "2026": "117,159.47",
     "2027": "117,446.76",
     "2028": "117,752.60",
@@ -11802,7 +11802,7 @@ const townsdata = {
     "Current Median House Price": "107,966",
     "NSA Since 1991": 2.81
   },
-  "St. Louis, MO-IL": {
+  "St. Louis, MO": {
     "2026": "160,769.51",
     "2027": "161,106.15",
     "2028": "161,464.51",
@@ -12024,7 +12024,7 @@ const townsdata = {
     "Current Median House Price": "130,056",
     "NSA Since 1991": 2
   },
-  "Tacoma-Lakewood, WA (MSAD)": {
+  "Tacoma-Lakewood, WA": {
     "2026": "387,719.69",
     "2027": "389,196.34",
     "2028": "390,768.25",
@@ -12542,7 +12542,7 @@ const townsdata = {
     "Current Median House Price": "171,655",
     "NSA Since 1991": 2.29
   },
-  "Virginia Beach-Norfolk-Newport News, VA-NC": {
+  "Virginia Beach-Norfolk-Newport News, VA": {
     "2026": "230,566.06",
     "2027": "231,146.25",
     "2028": "231,763.87",
@@ -12727,7 +12727,7 @@ const townsdata = {
     "Current Median House Price": "136,014",
     "NSA Since 1991": 1.88
   },
-  "Warren-Troy-Farmington Hills, MI (MSAD)": {
+  "Warren-Troy-Farmington Hills, MI": {
     "2026": "263,166.73",
     "2027": "263,717.79",
     "2028": "264,304.39",
@@ -12764,7 +12764,7 @@ const townsdata = {
     "Current Median House Price": "245,533",
     "NSA Since 1991": 2.37
   },
-  "Washington-Arlington-Alexandria, DC-VA-MD-WV (MSAD)": {
+  "Washington-Arlington-Alexandria, DC": {
     "2026": "417,337.68",
     "2027": "418,384.51",
     "2028": "419,498.88",
@@ -12912,7 +12912,7 @@ const townsdata = {
     "Current Median House Price": "318,392",
     "NSA Since 1991": 5.19
   },
-  "West Palm Beach-Boca Raton-Boynton Beach, FL (MSAD)": {
+  "West Palm Beach-Boca Raton-Boynton Beach, FL": {
     "2026": "301,316.79",
     "2027": "302,503.78",
     "2028": "303,767.36",
@@ -13060,7 +13060,7 @@ const townsdata = {
     "Current Median House Price": "94,667",
     "NSA Since 1991": 2.43
   },
-  "Wilmington, DE-MD-NJ (MSAD)": {
+  "Wilmington, DE": {
     "2026": "222,052.96",
     "2027": "222,482.96",
     "2028": "222,940.70",
@@ -13134,7 +13134,7 @@ const townsdata = {
     "Current Median House Price": "274,621",
     "NSA Since 1991": 4.21
   },
-  "Winchester, VA-WV": {
+  "Winchester, VA": {
     "2026": "273,419.86",
     "2027": "274,003.64",
     "2028": "274,625.08",
@@ -13208,7 +13208,7 @@ const townsdata = {
     "Current Median House Price": "196,600",
     "NSA Since 1991": 2.45
   },
-  "Worcester, MA-CT": {
+  "Worcester, MA": {
     "2026": "326,617.58",
     "2027": "327,386.88",
     "2028": "328,205.81",
@@ -13319,7 +13319,7 @@ const townsdata = {
     "Current Median House Price": "183,641",
     "NSA Since 1991": 2.11
   },
-  "Youngstown-Warren-Boardman, OH-PA": {
+  "Youngstown-Warren-Boardman, OH": {
     "2026": "110,516.93",
     "2027": "110,728.17",
     "2028": "110,953.05",
