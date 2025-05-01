@@ -139,7 +139,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   html += `
-    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <strong>$${safeCurrency(housePrice)}</strong></p>
+    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br><br> <strong>$${safeCurrency(housePrice)}</strong></p>
     <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
     <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
   `;
@@ -148,14 +148,14 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
     html += `<p>Monthly savings needed: <strong>$${safeFixed(monthlySavingsNeeded)}</strong> ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${numberOfMonths} months)</p>`;
   }
 
-  html += `<p>Estimated monthly mortgage repayment (principal & interest): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
+  html += `<p>Estimated monthly mortgage repayment (before insurance and taxes): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
 
   if (pmiMonthly > 0) {
     html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)}</strong> (based on ${(pmiRate * 100).toFixed(2)}%)</p>`;
   }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
-  html += `<p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "PITI"}): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>`;
+  html += `<strong><p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "PITI"}): $${safeFixed(totalMonthlyPayment)}</strong></p>`;
   html += `
     <p style="font-size: 0.9em; color: #555;">
       Based on a loan amount of $${safeCurrency(loanAmount)}, ${numberOfPayments} monthly payments over ${mortgageLength} years,
@@ -163,7 +163,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
       Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}),
       property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
     </p>
-    <p>Salary needed (so your total monthly repayments don't exceed 28% of your gross monthly salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
+   <strong><p>Salary needed (so your total monthly repayments don't exceed 28% of your gross monthly salary): $${safeCurrency(salaryNeeded)}</strong></p>
   `;
 
   if (monthlySaving > 0) {
