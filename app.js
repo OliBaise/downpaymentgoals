@@ -83,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// 📘 Methodology
+// PMI is calculated dynamically using linear interpolation:
+// - 1.86% annual rate at 3% down payment
+// - 0.58% annual rate at 19% down payment
+// This scale is based on the loan-to-value ratio, reflecting typical ranges found in NerdWallet data.
+// If the deposit is 20% or more, PMI is assumed to be zero.
+
 function getLtvAdjustment(depositPct) {
   if (depositPct >= 0.20) return -0.25;
   if (depositPct >= 0.10) return 0.0;
@@ -190,7 +197,18 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
   let html = "";
-  html += `<p>Interest rate adjusted for credit score and down payment: <strong>${(interestRate * 100).toFixed(2)}%</strong></p>`;
+  if (creditScoreRates[selectedScore] && selectedScore !== "custom") {
+    const baseRate = creditScoreRates[selectedScore].interest;
+    const ltvAdj = getLtvAdjustment(depositPercentage);
+    html += `
+      <p>
+        Interest rate based on your credit score (<strong>${selectedScore}</strong>) and down payment (${(depositPercentage * 100).toFixed(1)}%):<br>
+        Base rate: <strong>${baseRate.toFixed(2)}%</strong><br>
+        Down payment adjustment: <strong>${ltvAdj >= 0 ? '+' : ''}${ltvAdj.toFixed(2)}%</strong><br>
+        <strong>Final interest rate: ${(interestRate * 100).toFixed(2)}%</strong>
+      </p>
+    `;
+  }
 
   if (depositNeeded <= 0) {
     html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (calculated dynamically based on your ${(
