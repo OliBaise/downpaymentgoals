@@ -97,11 +97,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const depositRequired = housePrice * depositPercentage;
   const depositNeeded = depositRequired - currentSavings;
 
-  if (depositNeeded <= 0) {
-    result.innerHTML = `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
-    return;
-  }
-
+ 
   const numberOfMonths = targetAge ? (targetAge - currentAge) * 12 : 12;
   const monthlySavingsNeeded = depositNeeded / numberOfMonths;
 
@@ -132,6 +128,12 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
   let html = `
+
+ // ✅ Show congratulatory message but keep going
+  if (depositNeeded <= 0) {
+    html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
+  }
+  
     <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
     <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
     <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
