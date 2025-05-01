@@ -155,7 +155,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
-  html += `<strong><p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "PITI"}): $${safeFixed(totalMonthlyPayment)}</strong></p>`;
+  html += `<strong><p>Total estimated monthly payment: $${safeFixed(totalMonthlyPayment)}</strong></p>`;
   html += `
     <p style="font-size: 0.9em; color: #555;">
       Based on a loan amount of $${safeCurrency(loanAmount)}, ${numberOfPayments} monthly payments over ${mortgageLength} years,
