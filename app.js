@@ -160,8 +160,9 @@ html += `
 
 html += `
   <p style="font-size: 0.9em; color: #555;">
-    (Loan amount: $${safeCurrency(loanAmount)}, monthly interest rate: ${(monthlyInterestRate * 100).toFixed(2)}%, loan term: ${numberOfPayments} payments over ${mortgageLength} years.)
-  </p>
+  Based on a loan amount of $${safeCurrency(loanAmount)}, a ${numberOfPayments}-month term (${mortgageLength} years), and a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% (${(interestRate * 100).toFixed(2)}% annually).<br>
+  Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}), property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
+</p>
   <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
 `;
 
