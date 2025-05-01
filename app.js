@@ -11,6 +11,10 @@ function safeFixed(n) {
 document.addEventListener("DOMContentLoaded", function () {
   const townSelect = document.getElementById("town");
 
+  const stateAbbr = town.split(", ")[1];
+const stateName = stateAbbrMap[stateAbbr];
+const stateTaxRate = statePropertyTaxes[stateName] ? statePropertyTaxes[stateName] / 100 : 0.01235; // fallback to 1.235% if missing
+
   if (typeof townsdata === "undefined") {
     console.error("❌ townsdata is not defined. Check if townsData.js is loaded correctly.");
     return;
@@ -138,7 +142,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   const pmiMonthly = (loanAmount * pmiRate) / 12;
-  const taxesInsuranceMonthly = (housePrice * 0.01235) / 12;
+  const taxesInsuranceMonthly = (housePrice * stateTaxRate) / 12;
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
  let html = "";
@@ -167,7 +171,7 @@ html += `
   }
 
  html += `
-  <p>Estimated monthly property taxes & insurance (PITI): <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
+  p>Estimated monthly property taxes & insurance (based on your state's tax rate): <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on ${ (stateTaxRate * 100).toFixed(3) }% annually for ${stateName})</p>
 `;
 
 html += `
