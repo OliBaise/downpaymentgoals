@@ -93,6 +93,9 @@ function getLtvAdjustment(depositPct) {
 
 // 🔵 Handle calculator submission
 
-$1
+document.getElementById("calculator").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const result = document.getElementById("result");
   result.innerHTML = html;
 });
