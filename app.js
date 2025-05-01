@@ -174,12 +174,26 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   html += `<p>Total monthly mortgage repayment: <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>`;
 
-  html += `<p style="font-size: 0.9em; color: #555;">
-    Based on a loan amount of <strong>$${safeCurrency(loanAmount)}</strong>, ${numberOfPayments} monthly payments over ${mortgageLength} years,<br>
-    and a monthly interest rate of <strong>${(monthlyInterestRate * 100).toFixed(2)}%</strong> (${(interestRate * 100).toFixed(2)}% annually).<br>
-    Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}),<br>
-    property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)}), and PMI ($${safeFixed(pmiMonthly)}).
-  </p>`;
+    html += `
+<p style="font-size: 0.9em; color: #555;">
+  Based on:
+</p>
+<p>
+  • Loan amount: <strong>$${safeCurrency(loanAmount)}</strong><br>
+  • Repayment period: <strong>${numberOfPayments} months</strong> over <strong>${mortgageLength} years</strong><br>
+  • Monthly interest rate: <strong>${(monthlyInterestRate * 100).toFixed(2)}%</strong><br>
+  • Annual interest rate: <strong>${(interestRate * 100).toFixed(2)}%</strong>
+</p>
+<p style="font-size: 0.9em; color: #555;">
+  Your monthly payment includes:
+</p>
+<ul style="margin-bottom: 1em;">
+  <li>Principal and interest: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></li>
+  <li>Property taxes and insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong><br>
+      (calculated as ${ (stateTaxRate * 100).toFixed(3) }% of the home price annually in ${stateName}, divided by 12)</li>
+  <li>PMI: <strong>$${safeFixed(pmiMonthly)}</strong><br>
+      (based on ${(pmiRate * 100).toFixed(2)}% of the loan amount annually, divided by 12)</li>
+</ul>`;
 
   html += `<strong><p>Salary you need to cover this (so your total monthly repayments don't exceed 28% of your gross monthly salary): $${safeCurrency(salaryNeeded)}</strong></p>`;
 
