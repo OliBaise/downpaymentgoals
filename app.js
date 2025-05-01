@@ -189,7 +189,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   html += `<p>Estimated monthly mortgage repayment (before insurance and taxes): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
 
   if (pmiMonthly > 0) {
-    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the loan amount)</p>`;
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the total loan amount)</p>`;
   }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
