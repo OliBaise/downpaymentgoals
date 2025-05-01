@@ -197,21 +197,54 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
   let html = "";
-  if (creditScoreRates[selectedScore] && selectedScore !== "custom") {
-    const baseRate = creditScoreRates[selectedScore].interest;
-    const ltvAdj = getLtvAdjustment(depositPercentage);
-    html += `
-      <p>
-        Interest rate based on your credit score (<strong>${selectedScore}</strong>) and down payment (${(depositPercentage * 100).toFixed(1)}%):<br>
-        Base rate: <strong>${baseRate.toFixed(2)}%</strong><br>
-        Down payment adjustment: <strong>${ltvAdj >= 0 ? '+' : ''}${ltvAdj.toFixed(2)}%</strong><br>
-        <strong>Final interest rate: ${(interestRate * 100).toFixed(2)}%</strong>
-      </p>
-    `;
+
+  html += `<p>Estimated starter home cost in ${targetYear}: <strong>$${safeCurrency(housePrice)}</strong></p>`;
+  html += `<p>${(depositPercentage * 100).toFixed(0)}% down payment needed: <strong>$${safeCurrency(depositRequired)}</strong></p>`;
+  html += `<p>Total amount you need to save (down payment minus current savings): <strong>$${safeCurrency(depositNeeded)}</strong></p>`;
+
+  if (targetAge) {
+    html += `<p>What you need to save each month: <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
+  } else if (monthlySaving > 0) {
+    const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
+    html += `<p>How many months you need to save: <strong>${monthsToSave}</strong></p>`;
   }
 
-  if (depositNeeded <= 0) {
-    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (calculated dynamically based on your ${(
+  html += `<p>Total monthly mortgage repayment: <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>`;
+
+  html += `<p style="font-size: 0.9em; color: #555;">
+    Based on a loan amount of <strong>$${safeCurrency(loanAmount)}</strong>,
+    ${numberOfPayments} monthly payments over ${mortgageLength} years,
+    and a monthly interest rate of <strong>${(monthlyInterestRate * 100).toFixed(2)}%</strong>
+    (${(interestRate * 100).toFixed(2)}% annually).<br>
+    Your monthly payment includes:
+    <ul>
+      <li>Principal and interest: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></li>
+      <li>Property taxes and insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong></li>
+      ${pmiMonthly > 0 ? `<li>PMI: <strong>$${safeFixed(pmiMonthly)}</strong></li>` : ""}
+    </ul>
+  </p>`;
+
+  html += `<strong><p>Salary you need to cover this (so your total monthly repayments don't exceed 28% of your gross monthly salary): $${safeCurrency(salaryNeeded)}</strong></p>`;
+
+  if (depositNeeded <= 0) { {
+    html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
+  }
+
+  if (pmiMonthly > 0) {
+    html += `<p>
+      PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong><br>
+      This is based on an annual PMI rate of <strong>${(pmiRate * 100).toFixed(2)}%</strong>,
+      calculated from your down payment of <strong>${(depositPercentage * 100).toFixed(1)}%</strong>.<br>
+      The PMI rate is interpolated from <strong>1.86%</strong> (for 3% down) to <strong>0.58%</strong> (for 19% down),
+      then applied to the loan amount to get the annual cost and divided by 12 for monthly payment.
+    </p>`;
+  } per month</strong><br>
+      Based on a dynamically calculated annual PMI rate of <strong>${(pmiRate * 100).toFixed(2)}%</strong>,
+      which was derived from your <strong>${(depositPercentage * 100).toFixed(1)}%</strong> down payment.<br>
+      The PMI rate is interpolated linearly from <strong>1.86%</strong> at 3% down to <strong>0.58%</strong> at 19% down,<br>
+      and is applied to the loan amount to calculate annual PMI cost, divided by 12 for monthly cost.
+    </p>`;
+  } per month</strong> (calculated dynamically based on your ${(
         depositPercentage * 100
       ).toFixed(1)}% down payment — using a scale from 1.86% at 3% down to 0.58% at 19% down)</p>
 `;  }
