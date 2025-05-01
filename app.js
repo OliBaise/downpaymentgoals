@@ -9,22 +9,20 @@ function safeFixed(n) {
 
 // 🔵 Credit score-based interest and PMI rate mapping
 const creditScoreRates = {
-  excellent: { interest: 6.5, pmi: 0.003 },
-  good: { interest: 6.75, pmi: 0.005 },
-  fair: { interest: 7.25, pmi: 0.007 },
-  poor: { interest: 8.0, pmi: 0.009 },
-  verypoor: { interest: 9.5, pmi: 0.011 }
+  excellent: { interest: 6.5 },
+  good: { interest: 6.75 },
+  fair: { interest: 7.25 },
+  poor: { interest: 8.0 },
+  verypoor: { interest: 9.5 }
 };
 
 function getDynamicPmiRate(depositPct) {
-  // Linearly interpolate between 1.86% at 3% down and 0.58% at 19% down
   const minPct = 0.03;
   const maxPct = 0.19;
-  const minRate = 0.0058; // 0.58%
-  const maxRate = 0.0186; // 1.86%
+  const minRate = 0.0058;
+  const maxRate = 0.0186;
   if (depositPct >= maxPct) return 0;
   if (depositPct <= minPct) return maxRate;
-
   const slope = (minRate - maxRate) / (maxPct - minPct);
   return maxRate + slope * (depositPct - minPct);
 }
@@ -85,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+function getLtvAdjustment(depositPct) {
+  if (depositPct >= 0.20) return -0.25;
+  if (depositPct >= 0.10) return 0.0;
+  if (depositPct >= 0.05) return 0.25;
+  return 0.50;
+}
+
 // 🔵 Handle calculator submission
 
 document.getElementById("calculator").addEventListener("submit", function (e) {
@@ -115,7 +120,9 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   let pmiRate = getDynamicPmiRate(depositPercentage);
   if (creditScoreRates[selectedScore] && selectedScore !== "custom") {
-    interestRate = creditScoreRates[selectedScore].interest / 100;
+    const baseRate = creditScoreRates[selectedScore].interest;
+    const ltvAdjustment = getLtvAdjustment(depositPercentage);
+    interestRate = (baseRate + ltvAdjustment) / 100;
   }
 
   if (targetAge && monthlySaving) {
@@ -183,26 +190,13 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
   let html = "";
+  html += `<p>Interest rate adjusted for credit score and down payment: <strong>${(interestRate * 100).toFixed(2)}%</strong></p>`;
 
   if (depositNeeded <= 0) {
-    html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
-  }
-
-  html += `
-    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
-    <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
-    <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
-  `;
-
-  if (targetAge) {
-    html += `<p>Monthly savings needed: <strong>$${safeFixed(monthlySavingsNeeded)}</strong> ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${numberOfMonths} months)</p>`;
-  }
-
-  html += `<p>Estimated monthly mortgage repayment (before insurance and taxes): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
-
-  if (pmiMonthly > 0) {
-    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the loan amount)</p>`;
-  }
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (calculated dynamically based on your ${(
+        depositPercentage * 100
+      ).toFixed(1)}% down payment — using a scale from 1.86% at 3% down to 0.58% at 19% down)</p>
+`;  }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
   html += `<strong><p>Total estimated monthly payment: $${safeFixed(totalMonthlyPayment)}</strong></p>`;
