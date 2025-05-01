@@ -31,31 +31,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const stateAbbr = selectedTown.split(", ")[1];
     const stateName = stateAbbrMap[stateAbbr];
     const display = document.getElementById("stateDisplay");
-    display.textContent = stateName ? `State selected: ${stateName}` : "";
+
+    if (stateName) {
+      display.textContent = `State selected: ${stateName}`;
+    } else {
+      display.textContent = "";
+    }
   });
 });
-
-townSelect.addEventListener("change", function () {
-  const selectedTown = townSelect.value;
-  const stateAbbr = selectedTown.split(", ")[1];
-  const stateName = stateAbbrMap[stateAbbr];
-
-  const display = document.getElementById("stateDisplay");
-  if (stateName) {
-    display.textContent = `State selected: ${stateName}`;
-  } else {
-    display.textContent = "";
-  }
-});
-
 
 // 🔵 Handle calculator submission
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const town = document.getElementById("town").value;
-
-  // ✅ Safe: town is now defined and is a string
   const stateAbbr = town.split(", ")[1];
   const stateName = stateAbbrMap[stateAbbr];
   const stateTaxRate = statePropertyTaxes[stateName] ? statePropertyTaxes[stateName] / 100 : 0.01235;
@@ -72,7 +61,6 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const result = document.getElementById("result");
   result.innerHTML = "";
 
-  // Validation
   if (targetAge && monthlySaving) {
     result.innerHTML = `<p style="color: red;">⚠️ Please fill in only one: either the "Age you want to buy a home" or the "Monthly amount you can save" — not both.</p>`;
     return;
@@ -112,12 +100,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   const rawPrice = townYears[targetYear];
   if (!rawPrice) {
-    const maxYear = availableYears[availableYears.length - 1];
-    if (monthlySaving > 0) {
-      result.innerHTML = `<p style="color: red;">⚠️ Saving $${safeCurrency(monthlySaving)} a month is not enough to cover a down payment in ${town} by 2058, the latest year in our projections. Please consider lowering your down payment.</p>`;
-    } else {
-      result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
-    }
+    result.innerHTML = `<p style="color: red;">⚠️ No house price data available for ${targetYear} in ${town}.</p>`;
     return;
   }
 
@@ -125,7 +108,6 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const depositRequired = housePrice * depositPercentage;
   const depositNeeded = depositRequired - currentSavings;
 
- 
   const numberOfMonths = targetAge ? (targetAge - currentAge) * 12 : 12;
   const monthlySavingsNeeded = depositNeeded / numberOfMonths;
 
@@ -139,66 +121,54 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
-  // 🔵 PMI Rate Tier
+  // PMI logic
   let pmiRate = 0;
-  if (depositPercentage < 0.05) {
-    pmiRate = 0.011;
-  } else if (depositPercentage < 0.10) {
-    pmiRate = 0.009;
-  } else if (depositPercentage < 0.15) {
-    pmiRate = 0.005;
-  } else if (depositPercentage < 0.20) {
-    pmiRate = 0.003;
-  }
+  if (depositPercentage < 0.05) pmiRate = 0.011;
+  else if (depositPercentage < 0.10) pmiRate = 0.009;
+  else if (depositPercentage < 0.15) pmiRate = 0.005;
+  else if (depositPercentage < 0.20) pmiRate = 0.003;
 
   const pmiMonthly = (loanAmount * pmiRate) / 12;
   const taxesInsuranceMonthly = (housePrice * stateTaxRate) / 12;
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
- let html = "";
+  let html = "";
 
-if (depositNeeded <= 0) {
-  html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
-}
-
-html += `
-  <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
-  <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
-  <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
-`;
-
-  if (targetAge) {
-    const monthsToSave = (targetAge - currentAge) * 12;
-    html += `<p>Monthly savings needed ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${monthsToSave} months): <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
+  if (depositNeeded <= 0) {
+    html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
   }
 
   html += `
-    <p>Estimated monthly mortgage repayment (principal & interest):<strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
+    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <strong>$${safeCurrency(housePrice)}</strong></p>
+    <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
+    <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
   `;
 
-  if (pmiMonthly > 0) {
-    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)}</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually — required because deposit is under 20%)</p>`;
+  if (targetAge) {
+    html += `<p>Monthly savings needed: <strong>$${safeFixed(monthlySavingsNeeded)}</strong> ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${numberOfMonths} months)</p>`;
   }
 
- html += `
-  p>Estimated monthly property taxes & insurance (based on your state's tax rate): <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on ${ (stateTaxRate * 100).toFixed(3) }% annually for ${stateName})</p>
-`;
+  html += `<p>Estimated monthly mortgage repayment (principal & interest): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
 
-html += `
-  <p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "Principal, Interest, Taxes & Insurance"}): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>
-`;
+  if (pmiMonthly > 0) {
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)}</strong> (based on ${(pmiRate * 100).toFixed(2)}%)</p>`;
+  }
 
-html += `
-  <p style="font-size: 0.9em; color: #555;">
-  Based on a loan amount of $${safeCurrency(loanAmount)}, a ${numberOfPayments}-month term (${mortgageLength} years), and a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% (${(interestRate * 100).toFixed(2)}% annually).<br>
-  Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}), property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
-</p>
-  <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
-`;
+  html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
+  html += `<p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "PITI"}): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>`;
+  html += `
+    <p style="font-size: 0.9em; color: #555;">
+      Based on a loan amount of $${safeCurrency(loanAmount)}, ${numberOfPayments} monthly payments over ${mortgageLength} years,
+      and a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% (${(interestRate * 100).toFixed(2)}% annually).<br>
+      Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}),
+      property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
+    </p>
+    <p>Salary needed (28% rule): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
+  `;
 
   if (monthlySaving > 0) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p style="margin-top:10px;">At <strong>$${safeCurrency(monthlySaving)}</strong> saved per month, you would need approximately <strong>${monthsToSave}</strong> months to save for your deposit.</p>`;
+    html += `<p style="margin-top:10px;">At <strong>$${safeCurrency(monthlySaving)}</strong> saved per month, you'd need approx. <strong>${monthsToSave}</strong> months to save your deposit.</p>`;
   }
 
   result.innerHTML = html;
