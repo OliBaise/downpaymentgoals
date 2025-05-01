@@ -11,10 +11,6 @@ function safeFixed(n) {
 document.addEventListener("DOMContentLoaded", function () {
   const townSelect = document.getElementById("town");
 
-  const stateAbbr = town.split(", ")[1];
-const stateName = stateAbbrMap[stateAbbr];
-const stateTaxRate = statePropertyTaxes[stateName] ? statePropertyTaxes[stateName] / 100 : 0.01235; // fallback to 1.235% if missing
-
   if (typeof townsdata === "undefined") {
     console.error("❌ townsdata is not defined. Check if townsData.js is loaded correctly.");
     return;
@@ -28,6 +24,14 @@ const stateTaxRate = statePropertyTaxes[stateName] ? statePropertyTaxes[stateNam
     option.value = town;
     option.textContent = town;
     townSelect.appendChild(option);
+  });
+
+  townSelect.addEventListener("change", function () {
+    const selectedTown = townSelect.value;
+    const stateAbbr = selectedTown.split(", ")[1];
+    const stateName = stateAbbrMap[stateAbbr];
+    const display = document.getElementById("stateDisplay");
+    display.textContent = stateName ? `State selected: ${stateName}` : "";
   });
 });
 
