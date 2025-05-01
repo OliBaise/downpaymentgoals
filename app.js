@@ -151,7 +151,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
  html += `
-  <p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
+  <p>Estimated monthly property taxes & insurance (PITI): <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
 `;
 
 html += `
