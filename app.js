@@ -86,7 +86,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   if (!rawPrice) {
     const maxYear = availableYears[availableYears.length - 1];
     if (monthlySaving > 0) {
-      result.innerHTML = `<p style="color: red;">⚠️ Saving $${safeCurrency(monthlySaving)} a month is not enough to cover a down payment in ${town} by 2058, the latest year in our projections.</p>`;
+      result.innerHTML = `<p style="color: red;">⚠️ Saving $${safeCurrency(monthlySaving)} a month is not enough to cover a down payment in ${town} by 2058, the latest year in our projections. Please consider lowering your down payment.</p>`;
     } else {
       result.innerHTML = `<p style="color: red;">⚠️ No house price data available for the selected year for ${town}.</p>`;
     }
