@@ -48,9 +48,65 @@
     <div id="result"></div>
 
     <section id="methodology">
-      <h2>How it works</h2>
-      <p>To work out starter home house prices in each area we looked at each area's median house price on Zillow and then multiplied this by 2/3.<br><br> We then looked at how much house prices have changed from 1991-2024 on the Federal Housing Finance Agency and projected this forward to find out starter house prices from 2026 - 2058.<br><br> Prope</p>
- </section>
-  </div>
-</body>
-</html>
+  <h2>Methodology</h2>
+
+  <h3>1. Estimating Starter Home Prices</h3>
+  <p>
+    To estimate starter home prices in each area, we began by obtaining the median home prices from Zillow for the respective locations. Recognizing that starter homes are typically more affordable than the median-priced homes, we adjusted these figures by multiplying the median prices by two-thirds (⅔). This adjustment aims to reflect the cost of entry-level homes more accurately.
+  </p>
+
+  <h3>2. Projecting Future Home Prices (2026–2058)</h3>
+  <p>
+    We analyzed historical housing price data from 1991 to 2024 provided by the Federal Housing Finance Agency (FHFA). Using this data, we calculated the average annual growth rate of home prices over the period. We then applied this growth rate to project future starter home prices from 2026 through 2058, assuming a consistent rate of appreciation.
+  </p>
+
+  <h3>3. Calculating Property Taxes</h3>
+  <p>
+    Property taxes were estimated using an effective annual rate of <strong>1.235%</strong> of the home's value. This rate is based on the national average property tax rate as reported by 
+    <a href="https://www.businessinsider.com/personal-finance/mortgages/property-tax-by-state" target="_blank" rel="noopener noreferrer">Business Insider</a>. While actual property tax rates vary by state and locality, using the national average provides a standardized basis for comparison across different regions.
+  </p>
+
+  <h3>4. Estimating Private Mortgage Insurance (PMI)</h3>
+  <p>
+    Private Mortgage Insurance (PMI) is typically required for conventional loans when the down payment is less than 20% of the home's purchase price. The cost of PMI varies based on several factors, including the loan-to-value (LTV) ratio and the borrower's credit score. According to data from 
+    <a href="https://www.nerdwallet.com/article/mortgages/pmi-calculator" target="_blank" rel="noopener noreferrer">NerdWallet</a>, PMI rates generally range from 0.58% to 1.86% of the original loan amount annually.
+  </p>
+  <p>For our calculations, we used a tiered approach to estimate PMI rates based on the down payment percentage:</p>
+  <ul>
+    <li>&lt;5% down payment: <strong>1.1%</strong> annual PMI rate</li>
+    <li>5%–9.99% down payment: <strong>0.9%</strong> annual PMI rate</li>
+    <li>10%–14.99% down payment: <strong>0.5%</strong> annual PMI rate</li>
+    <li>15%–19.99% down payment: <strong>0.3%</strong> annual PMI rate</li>
+  </ul>
+  <p>
+    These rates were applied to the loan amount to determine the annual PMI cost, which was then divided by 12 to obtain the monthly PMI payment.
+  </p>
+
+  <h3>5. Mortgage Payment Calculations</h3>
+  <p>
+    Monthly mortgage payments were calculated using the standard amortization formula, which accounts for the loan amount, interest rate, and loan term. The formula used is:
+  </p>
+  <p>
+    <code>M = P × [r(1 + r)<sup>n</sup>] / [(1 + r)<sup>n</sup> − 1]</code>
+  </p>
+  <p>
+    Where:<br>
+    <strong>M</strong> = monthly mortgage payment<br>
+    <strong>P</strong> = principal loan amount<br>
+    <strong>r</strong> = monthly interest rate (annual rate divided by 12)<br>
+    <strong>n</strong> = total number of payments (loan term in months)
+  </p>
+  <p>The total estimated monthly payment includes:</p>
+  <ul>
+    <li>Principal and interest payments</li>
+    <li>Monthly property tax (calculated as 1.235% of home value divided by 12)</li>
+    <li>Monthly homeowner's insurance (not detailed here but typically estimated)</li>
+    <li>Monthly PMI payment (if applicable)</li>
+  </ul>
+
+  <h3>6. Determining Required Salary</h3>
+  <p>
+    To ensure affordability, we calculated the minimum gross annual salary required so that the total monthly housing payment does not exceed <strong>28%</strong> of the borrower's income. This threshold aligns with common lending guidelines that suggest housing costs should not surpass 28% of gross monthly income.
+  </p>
+</section>
+
