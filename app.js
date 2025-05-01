@@ -163,7 +163,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
       Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}),
       property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
     </p>
-    <p>Salary needed (28% rule): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
+    <p>Salary needed (so your total monthly repayments don't exceed 28% of your gross monthly salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
   `;
 
   if (monthlySaving > 0) {
