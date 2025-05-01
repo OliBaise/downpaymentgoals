@@ -147,6 +147,7 @@ html += `
 `;
 
 // 🔵 PMI rate based on deposit tier
+// 🔵 PMI rate based on deposit tier
 let pmiRate = 0;
 
 if (depositPercentage < 0.05) {
@@ -160,12 +161,8 @@ if (depositPercentage < 0.05) {
 }
 
 const pmiMonthly = (loanAmount * pmiRate) / 12;
-
 const taxesInsuranceMonthly = (housePrice * 0.01235) / 12;
-
 const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
-
-const pmiMonthly = (loanAmount * pmiRate) / 12;
 
 html += `
   <p>Estimated monthly mortgage repayment (principal & interest): $<strong>${safeFixed(monthlyMortgagePayment)}</strong></p>
@@ -183,6 +180,7 @@ html += `
   </p>
   <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): $<strong>${safeCurrency(salaryNeeded)}</strong></p>
 `;
+
 
 if (monthlySaving > 0) {
   const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
