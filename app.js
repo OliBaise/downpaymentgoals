@@ -56,10 +56,6 @@ if (!targetAge && !monthlySaving) {
   return;
 }
 
-  if (!targetAge && !monthlySaving) {
-    result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
-    return;
-  }
 
   if (!townsdata[town]) {
     result.innerHTML = `<p style="color: red;">⚠️ No data available for town: ${town}.</p>`;
@@ -124,6 +120,16 @@ const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
+ 
+  // 🔵 ADDITIONAL COSTS
+let pmiMonthly = 0;
+if (depositPercentage < 0.20) {
+  pmiMonthly = (loanAmount * 0.01) / 12; // 1% annually
+}
+
+const taxesInsuranceMonthly = (housePrice * 0.01235) / 12;
+
+const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
   let html = `
   <p>Estimated starter house price when you can afford your down payment (${targetYear}) : <strong>$${safeCurrency(housePrice)}</strong></p>
@@ -137,10 +143,19 @@ if (targetAge) {
 }
 
 html += `
-  <p>Estimated monthly mortgage repayment: <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
-<p style="font-size: 0.9em; color: #555;">
-  (Based on a loan of $${safeCurrency(loanAmount)}, a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% — calculated as your ${(interestRate * 100).toFixed(2)}% annual interest rate divided by 12 — and ${numberOfPayments} monthly payments over ${mortgageLength} years.)
-</p>
+  <p>Estimated monthly mortgage repayment (principal & interest): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
+`;
+
+if (pmiMonthly > 0) {
+  html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} (added because deposit is under 20%)</p></strong>`;
+}
+
+html += `
+  <p>Estimated property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)} (based on 1.235% annually)</strong></p>
+  <p>Total estimated monthly payment (PITI + PMI): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>
+  <p style="font-size: 0.9em; color: #555;">
+    (Loan amount: $${safeCurrency(loanAmount)}, monthly interest rate: ${(monthlyInterestRate * 100).toFixed(2)}%, loan term: ${numberOfPayments} payments over ${mortgageLength} years.)
+  </p>
   <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
 `;
 
