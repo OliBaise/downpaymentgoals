@@ -7,9 +7,22 @@ function safeFixed(n) {
   return isNaN(n) ? "—" : n.toFixed(0);
 }
 
-// 🔵 Populate towns dropdown on page load
+// 🔵 Credit score-based interest and PMI rate mapping
+const creditScoreRates = {
+  excellent: { interest: 6.5, pmi: 0.003 },
+  good: { interest: 6.75, pmi: 0.005 },
+  fair: { interest: 7.25, pmi: 0.007 },
+  poor: { interest: 8.0, pmi: 0.009 },
+  verypoor: { interest: 9.5, pmi: 0.011 }
+};
+
+// 🔵 Populate towns dropdown on page load and handle credit score change
+
 document.addEventListener("DOMContentLoaded", function () {
   const townSelect = document.getElementById("town");
+  const creditScoreSelect = document.getElementById("creditScore");
+  const interestRateInput = document.getElementById("interestRate");
+  const interestRateNote = document.getElementById("interestRateNote");
 
   if (typeof townsdata === "undefined") {
     console.error("❌ townsdata is not defined. Check if townsData.js is loaded correctly.");
@@ -38,11 +51,40 @@ document.addEventListener("DOMContentLoaded", function () {
       display.textContent = "";
     }
   });
+
+  creditScoreSelect.addEventListener("change", () => {
+    const selected = creditScoreSelect.value;
+
+    if (selected === "custom") {
+      interestRateInput.disabled = false;
+      interestRateInput.value = "";
+      interestRateNote.textContent = "Enter your custom annual interest rate.";
+    } else if (creditScoreRates[selected]) {
+      const autoRate = creditScoreRates[selected].interest;
+      interestRateInput.disabled = true;
+      interestRateInput.value = autoRate.toFixed(2);
+      interestRateNote.textContent = `Estimated from your credit score: ${selected} = ${autoRate.toFixed(2)}% annual interest.`;
+    } else {
+      interestRateInput.disabled = true;
+      interestRateInput.value = "";
+      interestRateNote.textContent = "";
+    }
+  });
 });
 
 // 🔵 Handle calculator submission
+
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
+
+  const result = document.getElementById("result");
+  result.innerHTML = "";
+
+  const selectedScore = document.getElementById("creditScore").value;
+  if (!selectedScore) {
+    result.innerHTML = `<p style="color: red;">⚠️ Please select your credit score range or choose \"Custom\" to enter your own interest rate.</p>`;
+    return;
+  }
 
   const town = document.getElementById("town").value;
   const stateAbbr = town.split(", ")[1];
@@ -55,19 +97,22 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const depositPercentage = parseFloat(document.getElementById("depositPercentage").value) / 100;
   const currentSavings = parseFloat(document.getElementById("savings").value) || 0;
   const monthlySaving = parseFloat(document.getElementById("monthlySaving").value) || 0;
-  const interestRate = (parseFloat(document.getElementById("interestRate").value) / 100) || 0.05;
+  let interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
   const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
 
-  const result = document.getElementById("result");
-  result.innerHTML = "";
+  let pmiRate = 0;
+  if (creditScoreRates[selectedScore] && selectedScore !== "custom") {
+    interestRate = creditScoreRates[selectedScore].interest / 100;
+    pmiRate = creditScoreRates[selectedScore].pmi;
+  }
 
   if (targetAge && monthlySaving) {
-    result.innerHTML = `<p style="color: red;">⚠️ Please fill in only one: either the "Age you want to buy a home" or the "Monthly amount you can save" — not both.</p>`;
+    result.innerHTML = `<p style="color: red;">⚠️ Please fill in only one: either the \"Age you want to buy a home\" or the \"Monthly amount you can save\" — not both.</p>`;
     return;
   }
 
   if (!targetAge && !monthlySaving) {
-    result.innerHTML = `<p style="color: red;">⚠️ Please fill in either "Age you want to buy a home" or "Monthly amount you can save".</p>`;
+    result.innerHTML = `<p style="color: red;">⚠️ Please fill in either \"Age you want to buy a home\" or \"Monthly amount you can save\".</p>`;
     return;
   }
 
@@ -121,13 +166,6 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   const salaryNeeded = (monthlyMortgagePayment * 12) / 0.28;
 
-  // PMI logic
-  let pmiRate = 0;
-  if (depositPercentage < 0.05) pmiRate = 0.011;
-  else if (depositPercentage < 0.10) pmiRate = 0.009;
-  else if (depositPercentage < 0.15) pmiRate = 0.005;
-  else if (depositPercentage < 0.20) pmiRate = 0.003;
-
   const pmiMonthly = (loanAmount * pmiRate) / 12;
   const taxesInsuranceMonthly = (housePrice * stateTaxRate) / 12;
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
@@ -150,9 +188,9 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   html += `<p>Estimated monthly mortgage repayment (before insurance and taxes): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
 
- if (pmiMonthly > 0) {
-  html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the loan amount)</p>`;
-}
+  if (pmiMonthly > 0) {
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the loan amount)</p>`;
+  }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
   html += `<strong><p>Total estimated monthly payment: $${safeFixed(totalMonthlyPayment)}</strong></p>`;
