@@ -165,7 +165,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
     html += `<p>What you need to save each month: <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
   } else if (monthlySaving > 0) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p>How many months you need to save: <strong>${monthsToSave}</strong></p>`;
+    html += `<p>How many months you need to save: <strong>${monthsToSave}</strong> ($${safeFixed(depositNeeded)} ÷ $${safeFixed(monthlySaving)})</p>`;
   }
 
   const pmiMonthly = (loanAmount * pmiRate) / 12;
