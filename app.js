@@ -35,33 +35,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const interestRateInput = document.getElementById("interestRate");
   const interestRateNote = document.getElementById("interestRateNote");
 
-  if (typeof townsdata === "undefined") {
-    console.error("❌ townsdata is not defined. Check if townsData.js is loaded correctly.");
-    return;
-  }
-
-  const towns = Object.keys(townsdata).sort();
-  townSelect.innerHTML = `<option value="">Select your town or city</option>`;
-
-  towns.forEach(function (town) {
-    const option = document.createElement("option");
-    option.value = town;
-    option.textContent = town;
-    townSelect.appendChild(option);
-  });
-
-  townSelect.addEventListener("change", function () {
-    const selectedTown = townSelect.value;
-    const stateAbbr = selectedTown.split(", ")[1];
-    const stateName = stateAbbrMap[stateAbbr];
-    const display = document.getElementById("stateDisplay");
-
-    if (stateName) {
-      display.textContent = `State selected: ${stateName}`;
-    } else {
-      display.textContent = "";
+  try {
+    if (typeof townsdata !== "object" || Object.keys(townsdata).length === 0) {
+      throw new Error("townsdata is undefined or empty");
     }
-  });
+
+    const towns = Object.keys(townsdata).sort();
+    townSelect.innerHTML = `<option value="">Select your town or city</option>`;
+
+    towns.forEach(function (town) {
+      const option = document.createElement("option");
+      option.value = town;
+      option.textContent = town;
+      townSelect.appendChild(option);
+    });
+
+    townSelect.disabled = false;
+  } catch (err) {
+    console.error("❌ Error loading towns:", err.message);
+    townSelect.innerHTML = `<option value="">⚠️ Error loading towns</option>`;
+    townSelect.disabled = true;
+  }
 
   creditScoreSelect.addEventListener("change", () => {
     const selected = creditScoreSelect.value;
@@ -226,7 +220,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   html += `<strong><p>Salary you need to cover this (so your total monthly repayments don't exceed 28% of your gross monthly salary): $${safeCurrency(salaryNeeded)}</strong></p>`;
 
-  if (depositNeeded <= 0) { {
+  if (depositNeeded <= 0) {
     html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
   }
 
@@ -238,33 +232,4 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
       The PMI rate is interpolated from <strong>1.86%</strong> (for 3% down) to <strong>0.58%</strong> (for 19% down),
       then applied to the loan amount to get the annual cost and divided by 12 for monthly payment.
     </p>`;
-  } per month</strong><br>
-      Based on a dynamically calculated annual PMI rate of <strong>${(pmiRate * 100).toFixed(2)}%</strong>,
-      which was derived from your <strong>${(depositPercentage * 100).toFixed(1)}%</strong> down payment.<br>
-      The PMI rate is interpolated linearly from <strong>1.86%</strong> at 3% down to <strong>0.58%</strong> at 19% down,<br>
-      and is applied to the loan amount to calculate annual PMI cost, divided by 12 for monthly cost.
-    </p>`;
-  } per month</strong> (calculated dynamically based on your ${(
-        depositPercentage * 100
-      ).toFixed(1)}% down payment — using a scale from 1.86% at 3% down to 0.58% at 19% down)</p>
-`;  }
-
-  html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
-  html += `<strong><p>Total estimated monthly payment: $${safeFixed(totalMonthlyPayment)}</strong></p>`;
-  html += `
-    <p style="font-size: 0.9em; color: #555;">
-      Based on a loan amount of $${safeCurrency(loanAmount)}, ${numberOfPayments} monthly payments over ${mortgageLength} years,
-      and a monthly interest rate of ${(monthlyInterestRate * 100).toFixed(2)}% (${(interestRate * 100).toFixed(2)}% annually).<br>
-      Your monthly payment includes principal and interest ($${safeFixed(monthlyMortgagePayment)}),
-      property taxes and insurance ($${safeFixed(taxesInsuranceMonthly)})${pmiMonthly > 0 ? `, and PMI ($${safeFixed(pmiMonthly)})` : ""}.
-    </p>
-   <strong><p>Salary needed (so your total monthly repayments don't exceed 28% of your gross monthly salary): $${safeCurrency(salaryNeeded)}</strong></p>
-  `;
-
-  if (monthlySaving > 0) {
-    const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p style="margin-top:10px;">At <strong>$${safeCurrency(monthlySaving)}</strong> saved per month, you'd need approx. <strong>${monthsToSave}</strong> months to save your deposit.</p>`;
   }
-
-  result.innerHTML = html;
-});
