@@ -146,9 +146,21 @@ html += `
   <p>Estimated monthly mortgage repayment (principal & interest): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
 `;
 
-if (pmiMonthly > 0) {
-  html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} (added because deposit is under 20%)</p></strong>`;
+let pmiRate = 0;
+
+if (depositPercentage < 0.05) {
+  pmiRate = 0.011; // 1.1%
+} else if (depositPercentage < 0.10) {
+  pmiRate = 0.009; // 0.9%
+} else if (depositPercentage < 0.15) {
+  pmiRate = 0.005; // 0.5%
+} else if (depositPercentage < 0.20) {
+  pmiRate = 0.003; // 0.3%
+} else {
+  pmiRate = 0; // No PMI
 }
+
+const pmiMonthly = (loanAmount * pmiRate) / 12;
 
 html += `
   <p>Estimated property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)} (based on 1.235% annually)</strong></p>
