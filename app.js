@@ -127,17 +127,17 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const taxesInsuranceMonthly = (housePrice * 0.01235) / 12;
   const totalMonthlyPayment = monthlyMortgagePayment + pmiMonthly + taxesInsuranceMonthly;
 
-  let html = `
+ let html = "";
 
- // ✅ Show congratulatory message but keep going
-  if (depositNeeded <= 0) {
-    html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
-  }
-  
-    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
-    <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
-    <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
-  `;
+if (depositNeeded <= 0) {
+  html += `<p>🎉 Congratulations! You already have enough savings for your deposit.</p>`;
+}
+
+html += `
+  <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
+  <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
+  <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
+`;
 
   if (targetAge) {
     const monthsToSave = (targetAge - currentAge) * 12;
