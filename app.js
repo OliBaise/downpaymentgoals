@@ -151,17 +151,17 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   html += `
-    <p>Estimated monthly property taxes & insurance: $<strong>${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
-    <p>Total estimated monthly payment (PITI${pmiMonthly > 0 ? " + PMI" : ""}): $<strong>${safeFixed(totalMonthlyPayment)}</strong></p>
+    <p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
+    <p>Total estimated monthly payment (PITI${pmiMonthly > 0 ? " + PMI" : ""}): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>
     <p style="font-size: 0.9em; color: #555;">
       (Loan amount: $${safeCurrency(loanAmount)}, monthly interest rate: ${(monthlyInterestRate * 100).toFixed(2)}%, loan term: ${numberOfPayments} payments over ${mortgageLength} years.)
     </p>
-    <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): $<strong>${safeCurrency(salaryNeeded)}</strong></p>
+    <p>Salary needed to afford mortgage (so your mortgage repayments do not exceed 28% of your gross salary): <strong>$${safeCurrency(salaryNeeded)}</strong></p>
   `;
 
   if (monthlySaving > 0) {
     const monthsToSave = Math.ceil(depositNeeded / monthlySaving);
-    html += `<p style="margin-top:10px;">At $<strong>${safeCurrency(monthlySaving)}</strong> saved per month, you would need approximately <strong>${monthsToSave}</strong> months to save for your deposit.</p>`;
+    html += `<p style="margin-top:10px;">At <strong>$${safeCurrency(monthlySaving)}</strong> saved per month, you would need approximately <strong>${monthsToSave}</strong> months to save for your deposit.</p>`;
   }
 
   result.innerHTML = html;
