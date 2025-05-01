@@ -27,6 +27,20 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+townSelect.addEventListener("change", function () {
+  const selectedTown = townSelect.value;
+  const stateAbbr = selectedTown.split(", ")[1];
+  const stateName = stateAbbrMap[stateAbbr];
+
+  const display = document.getElementById("stateDisplay");
+  if (stateName) {
+    display.textContent = `State selected: ${stateName}`;
+  } else {
+    display.textContent = "";
+  }
+});
+
+
 // 🔵 Handle calculator submission
 document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
