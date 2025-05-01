@@ -78,12 +78,57 @@
     We analyzed historical housing price data from 1991 to 2024 provided by the Federal Housing Finance Agency (FHFA). Using this data, we calculated the average annual growth rate of home prices over the period. We then applied this growth rate to project future starter home prices from 2026 through 2058, assuming a consistent rate of appreciation.
   </p>
 
-  <h3>3. Calculating Property Taxes</h3>
+  <h3>4. Calculating Property Taxes</h3>
   <p>Property taxes are dependend on your state and are taken from  
     <a href="https://www.businessinsider.com/personal-finance/mortgages/property-tax-by-state" target="_blank" rel="noopener noreferrer">Business Insider's 2024 report</a>. 
   </p>
 
-  <h3>4. Estimating Private Mortgage Insurance (PMI)</h3>
+<h3>3. Estimating Your Interest Rate</h3>
+<p>
+  Your estimated mortgage interest rate is based on two key factors:
+</p>
+<ul>
+  <li><strong>Your credit score</strong></li>
+  <li><strong>Your down payment size</strong> (as a percentage of the home's price)</li>
+</ul>
+
+<p>
+  We use a base interest rate depending on your credit score, following typical lender expectations according to <a href=https://www.businessinsider.com/personal-finance/mortgages/property-tax-by-state" target="_blank" rel="noopener noreferrer">The Mortgate Reports</a>:
+</p>
+<table>
+  <thead>
+    <tr><th>Credit Score</th><th>Base Annual Interest Rate</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Excellent (740+)</td><td>6.5%</td></tr>
+    <tr><td>Good (700–739)</td><td>6.75%</td></tr>
+    <tr><td>Fair (660–699)</td><td>7.25%</td></tr>
+    <tr><td>Poor (620–659)</td><td>8.0%</td></tr>
+    <tr><td>Very Poor (&lt;620)</td><td>9.5%</td></tr>
+  </tbody>
+</table>
+
+<p>
+  We then apply an adjustment based on your loan-to-value ratio (how much of the home’s price you're borrowing).
+  A larger down payment means a lower risk for lenders and therefore a lower interest rate.
+</p>
+
+<p>
+  The following adjustments are applied to your base interest rate:
+</p>
+<ul>
+  <li><strong>20% or more down:</strong> -0.25%</li>
+  <li><strong>10%–19.99% down:</strong> 0.00%</li>
+  <li><strong>5%–9.99% down:</strong> +0.25%</li>
+  <li><strong>Below 5% down:</strong> +0.50%</li>
+</ul>
+<p>This weighting was based on <a href=https://singlefamily.fanniemae.com/media/9391/display" target="_blank" rel="noopener noreferrer">Fannie May's Loan-Level Price Adjustment Matrix</a></p>
+<p>
+  Your final interest rate is calculated by adding the base rate from your credit score and the adjustment from your down payment.
+</p>
+
+      
+  <h3>5. Estimating Private Mortgage Insurance (PMI)</h3>
   <p>
     Private Mortgage Insurance (PMI) is typically required for conventional loans when the down payment is less than 20% of the home's purchase price. The cost of PMI varies based on several factors, including the loan-to-value (LTV) ratio and the borrower's credit score. According to data from 
     <a href="https://www.nerdwallet.com/article/mortgages/pmi-calculator" target="_blank" rel="noopener noreferrer">NerdWallet</a>, PMI rates generally range from 0.58% to 1.86% of the original loan amount annually.
@@ -93,7 +138,7 @@
     These rates were applied to the loan amount to determine the annual PMI cost, which was then divided by 12 to obtain the monthly PMI payment.
   </p>
 
-  <h3>5. Mortgage Payment Calculations</h3>
+  <h3>6. Mortgage Payment Calculations</h3>
   <p>
     Monthly mortgage payments were calculated using the standard amortization formula, which accounts for the loan amount, interest rate, and loan term. The formula used is:
   </p>
@@ -115,9 +160,11 @@
     <li>Monthly PMI payment (if applicable)</li>
   </ul>
 
-  <h3>6. Determining Required Salary</h3>
+  <h3>7. Determining Required Salary</h3>
   <p>
     To ensure affordability, we calculated the minimum gross annual salary required so that the total monthly housing payment does not exceed <strong>28%</strong> of the borrower's income. This threshold aligns with common lending guidelines that suggest housing costs should not surpass 28% of gross monthly income.
   </p>
+<br><br>
+    <p>Please note that this calculator is NOT a substitute for professional mortgage advice.</p>
 </section>
 
