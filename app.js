@@ -77,6 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// 📘 Methodology
+// PMI is calculated dynamically using linear interpolation:
+// - 1.86% annual rate at 3% down payment
+// - 0.58% annual rate at 19% down payment
+// This scale is based on the loan-to-value ratio, reflecting typical ranges found in NerdWallet data.
+// If the deposit is 20% or more, PMI is assumed to be zero.
+
 function getLtvAdjustment(depositPct) {
   if (depositPct >= 0.20) return -0.25;
   if (depositPct >= 0.10) return 0.0;
@@ -138,7 +145,12 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
     targetYear = availableYears[0];
   }
 
-  const rawPrice = townYears[targetYear];
+  if (!townYears[targetYear]) {
+  result.innerHTML = `<p style="color: red;">⚠️ No house price data available for ${targetYear} in ${town}.</p>`;
+  return;
+}
+
+const rawPrice = townYears[targetYear];
   const housePrice = parseFloat(rawPrice.toString().replace(/,/g, ''));
   const depositRequired = housePrice * depositPercentage;
   const depositNeeded = depositRequired - currentSavings;
@@ -174,7 +186,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   html += `<p>Total monthly mortgage repayment: <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>`;
 
-    html += `
+  html += `
 <p style="font-size: 0.9em; color: #555;">
   Based on:
 </p>
