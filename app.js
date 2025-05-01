@@ -139,21 +139,21 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
 
   if (targetAge) {
     const monthsToSave = (targetAge - currentAge) * 12;
-    html += `<p>Monthly savings needed ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${monthsToSave} months): $<strong>${safeFixed(monthlySavingsNeeded)}</strong></p>`;
+    html += `<p>Monthly savings needed ($${safeCurrency(depositRequired)} - $${safeCurrency(currentSavings)} ÷ ${monthsToSave} months): <strong>$${safeFixed(monthlySavingsNeeded)}</strong></p>`;
   }
 
   html += `
-    <p>Estimated monthly mortgage repayment (principal & interest): $<strong>${safeFixed(monthlyMortgagePayment)}</strong></p>
+    <p>Estimated monthly mortgage repayment (principal & interest):<strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>
   `;
 
   if (pmiMonthly > 0) {
-    html += `<p>PMI (Private Mortgage Insurance): $<strong>${safeFixed(pmiMonthly)}</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually — required because deposit is under 20%)</p>`;
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)}</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually — required because deposit is under 20%)</p>`;
   }
 
   html += `
     <p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (based on 1.235% of house price annually)</p>
     html += `
-  <p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "Principal, Interest, Taxes & Insurance"}): $<strong>${safeFixed(totalMonthlyPayment)}</strong></p>
+  <p>Total estimated monthly payment (${pmiMonthly > 0 ? "PITI + PMI" : "Principal, Interest, Taxes & Insurance"}): <strong>$${safeFixed(totalMonthlyPayment)}</strong></p>
 `;
     <p style="font-size: 0.9em; color: #555;">
       (Loan amount: $${safeCurrency(loanAmount)}, monthly interest rate: ${(monthlyInterestRate * 100).toFixed(2)}%, loan term: ${numberOfPayments} payments over ${mortgageLength} years.)
