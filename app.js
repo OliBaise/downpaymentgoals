@@ -97,5 +97,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const result = document.getElementById("result");
+  let html = "<p style='color: red;'>⚠️ Calculator logic is not implemented.</p>";
   result.innerHTML = html;
 });
+
