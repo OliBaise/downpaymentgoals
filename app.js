@@ -16,6 +16,19 @@ const creditScoreRates = {
   verypoor: { interest: 9.5, pmi: 0.011 }
 };
 
+function getDynamicPmiRate(depositPct) {
+  // Linearly interpolate between 1.86% at 3% down and 0.58% at 19% down
+  const minPct = 0.03;
+  const maxPct = 0.19;
+  const minRate = 0.0058; // 0.58%
+  const maxRate = 0.0186; // 1.86%
+  if (depositPct >= maxPct) return 0;
+  if (depositPct <= minPct) return maxRate;
+
+  const slope = (minRate - maxRate) / (maxPct - minPct);
+  return maxRate + slope * (depositPct - minPct);
+}
+
 // 🔵 Populate towns dropdown on page load and handle credit score change
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -100,10 +113,9 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   let interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
   const mortgageLength = parseInt(document.getElementById("mortgageLength").value) || 30;
 
-  let pmiRate = 0;
+  let pmiRate = getDynamicPmiRate(depositPercentage);
   if (creditScoreRates[selectedScore] && selectedScore !== "custom") {
     interestRate = creditScoreRates[selectedScore].interest / 100;
-    pmiRate = creditScoreRates[selectedScore].pmi;
   }
 
   if (targetAge && monthlySaving) {
@@ -189,7 +201,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   html += `<p>Estimated monthly mortgage repayment (before insurance and taxes): <strong>$${safeFixed(monthlyMortgagePayment)}</strong></p>`;
 
   if (pmiMonthly > 0) {
-    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the total loan amount)</p>`;
+    html += `<p>PMI (Private Mortgage Insurance): <strong>$${safeFixed(pmiMonthly)} per month</strong> (based on ${(pmiRate * 100).toFixed(2)}% annually of the loan amount)</p>`;
   }
 
   html += `<p>Estimated monthly property taxes & insurance: <strong>$${safeFixed(taxesInsuranceMonthly)}</strong> (at ${(stateTaxRate * 100).toFixed(3)}% annually for ${stateName})</p>`;
