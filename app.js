@@ -146,7 +146,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   if (!townYears[targetYear]) {
-  result.innerHTML = `<p style="color: red;">⚠️ No house price data available for ${targetYear} in ${town}.</p>`;
+  result.innerHTML = `<p style="color: red;">You cannot afford a downpayment by 2058 in ${town} based on what you can put away. Please consider lowering your downpayment</p>`;
   return;
 }
 
