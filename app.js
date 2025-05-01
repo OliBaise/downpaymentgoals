@@ -50,6 +50,12 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const town = document.getElementById("town").value;
+
+  // ✅ Safe: town is now defined and is a string
+  const stateAbbr = town.split(", ")[1];
+  const stateName = stateAbbrMap[stateAbbr];
+  const stateTaxRate = statePropertyTaxes[stateName] ? statePropertyTaxes[stateName] / 100 : 0.01235;
+
   const currentAge = parseInt(document.getElementById("age").value);
   const targetAgeInput = document.getElementById("targetAge").value;
   const targetAge = targetAgeInput ? parseInt(targetAgeInput) : null;
