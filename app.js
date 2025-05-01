@@ -157,7 +157,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   const salaryNeeded = (monthlyMortgagePayment + ((housePrice * stateTaxRate) / 12) + ((loanAmount * pmiRate) / 12)) * 12 / 0.28;
 
   let html = "";
-  html += `<p>Estimated starter home cost in ${targetYear}: <strong>$${safeCurrency(housePrice)}</strong></p>`;
+  html += `<p>Estimated starter home cost in ${town} in ${targetYear}: <strong>$${safeCurrency(housePrice)}</strong></p>`;
   html += `<p>${(depositPercentage * 100).toFixed(0)}% down payment needed: <strong>$${safeCurrency(depositRequired)}</strong></p>`;
   html += `<p>Total amount you need to save (down payment minus current savings): <strong>$${safeCurrency(depositNeeded)}</strong></p>`;
 
