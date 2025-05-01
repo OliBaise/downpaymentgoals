@@ -139,7 +139,7 @@ document.getElementById("calculator").addEventListener("submit", function (e) {
   }
 
   html += `
-    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br><br> <strong>$${safeCurrency(housePrice)}</strong></p>
+    <p>Estimated starter house price when you can afford your down payment (${targetYear}): <br> <strong>$${safeCurrency(housePrice)}</strong></p>
     <p>Down payment required (${(depositPercentage * 100).toFixed(0)}% of house price): <strong>$${safeCurrency(depositRequired)}</strong></p>
     <p>Down payment required minus current savings: <strong>$${safeCurrency(depositNeeded)}</strong></p>
   `;
